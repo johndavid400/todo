@@ -7,7 +7,9 @@ const app = express();
 const port = process.env.PORT;
 
 app.get('/', (req, res) => {
-  res.send('Sup, using Express + TypeScript');
+  const name = req.query.name || '';
+  const body = 'Sup ' + name + '- using Express + TypeScript ';
+  res.send(body);
 });
 
 app.listen(port, () => {
