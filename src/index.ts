@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { Request, Response } from 'express';
+import morgan from 'morgan';
 
 import { users } from "./routes/users";
 import { categories } from "./routes/categories";
@@ -11,6 +13,14 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express. json());
+app.use(morgan('combined'))
+
+app.get('/', (req: Request, res: Response) => {
+  res.send('Home page');
+});
 
 app.use("/", users);
 app.use("/", categories);
