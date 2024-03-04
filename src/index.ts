@@ -1,32 +1,7 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from 'cors';
-import { Request, Response } from 'express';
-import morgan from 'morgan';
+import { app } from './app';
 
-import { users } from "./routes/users";
-import { categories } from "./routes/categories";
-import { lists } from "./routes/lists";
-import { list_items } from "./routes/list_items";
+const PORT = process.env.PORT || 5000;
 
-dotenv.config();
-
-const app = express();
-const port = process.env.PORT;
-
-app.use(express.urlencoded({ extended: true }))
-app.use(express. json());
-app.use(morgan('combined'))
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Home page');
-});
-
-app.use("/", users);
-app.use("/", categories);
-app.use("/", lists);
-app.use("/", list_items);
-
-app.listen(port, () => {
-  console.log(`[server]: Server is running at http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server started on ${PORT}`);
 });

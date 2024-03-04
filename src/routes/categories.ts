@@ -1,34 +1,110 @@
 import { Router, Request, Response } from 'express';
+import * as categoriesController from '../controllers/categories_controller';
+
+/**
+ * @swagger
+ * tags:
+ *   name: Categories
+ */
 export const categories = Router();
 
-categories.get('/categories', (req: Request, res: Response) => {
-  res.send('Categories');
-});
+/**
+ * @swagger
+ * /categories:
+ *   get:
+ *     summary: Get all categories
+ *     tags: [Categories]
+ *     responses:
+ *       200:
+ *         description: Returns an array of categories.
+ */
+categories.route('/').get(categoriesController.getCategories);
 
-categories.get('/categories/new', (req: Request, res: Response) => {
-  res.send('New Category form');
-});
+/**
+ * @swagger
+ * /categories/{id}:
+ *   get:
+ *     summary: Get a category by ID
+ *     tags: [Categories]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the category.
+ *     responses:
+ *       200:
+ *         description: Returns an array of categories.
+ */
+categories.route('/:id').get(categoriesController.getCategory);
 
-categories.post('/categories', (req: Request, res: Response) => {
-  res.send('Create new Category');
-});
+/**
+ * @swagger
+ * /categories:
+ *   post:
+ *     summary: Create a new category
+ *     tags: [Categories]
+ *     parameters:
+ *      - name: name
+ *        in: path
+ *        type: string
+ *        description: The name of the category.
+ *      - name: color_code
+ *        in: path
+ *        type: string
+ *        description: The HTML color hex value of the category.
+ *     responses:
+ *       200:
+ *         description: Returns the new category.
+ */
+categories.route('/').post(categoriesController.createCategory);
 
-categories.get('/categories/:id', (req: Request, res: Response) => {
-  res.send(`Category with id ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /categories/{id}:
+ *   patch:
+ *     summary: Update a category
+ *     tags: [Categories]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the category.
+ *     responses:
+ *       200:
+ *         description: returns the category object.
+ */
+categories.route('/:id').patch(categoriesController.updateCategory);
 
-categories.get('/categories/:id/edit', (req: Request, res: Response) => {
-  res.send(`Edit form for Category ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /categories/{id}:
+ *   put:
+ *     summary: Update a category
+ *     tags: [Categories]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the category.
+ *     responses:
+ *       200:
+ *         description: returns the category object.
+ */
+categories.route('/:id').put(categoriesController.updateCategory);
 
-categories.patch('/categories/:id', (req: Request, res: Response) => {
-  res.send(`Update Category (PATCH) ${req.params.id}`);
-});
-
-categories.put('/categories/:id', (req: Request, res: Response) => {
-  res.send(`Update Category (PUT) ${req.params.id}`);
-});
-
-categories.delete('/categories/:id', (req: Request, res: Response) => {
-  res.send(`Delete Category ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /categories/{id}:
+ *   delete:
+ *     summary: Delete a category
+ *     tags: [Categories]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the category.
+ *     responses:
+ *       204:
+ *         description: no content.
+ */
+categories.route('/:id').delete(categoriesController.deleteCategory);

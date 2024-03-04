@@ -1,34 +1,110 @@
 import { Router, Request, Response } from 'express';
+import * as listsController from '../controllers/lists_controller';
+
+/**
+ * @swagger
+ * tags:
+ *   name: Lists
+ */
 export const lists = Router();
 
-lists.get('/lists', (req: Request, res: Response) => {
-  res.send('Lists');
-});
+/**
+ * @swagger
+ * /lists:
+ *   get:
+ *     summary: Get all lists
+ *     tags: [Lists]
+ *     responses:
+ *       200:
+ *         description: Returns an array of lists.
+ */
+lists.route('/').get(listsController.getLists);
 
-lists.get('/lists/new', (req: Request, res: Response) => {
-  res.send('New List form');
-});
+/**
+ * @swagger
+ * /lists/{id}:
+ *   get:
+ *     summary: Get a list by ID
+ *     tags: [Lists]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the list.
+ *     responses:
+ *       200:
+ *         description: Returns an array of lists.
+ */
+lists.route('/:id').get(listsController.getList);
 
-lists.post('/lists', (req: Request, res: Response) => {
-  res.send('Create new List');
-});
+/**
+ * @swagger
+ * /lists:
+ *   post:
+ *     summary: Create a new list
+ *     tags: [Lists]
+ *     parameters:
+ *      - name: title
+ *        in: path
+ *        type: string
+ *        description: The title of the list.
+ *      - name: category_id
+ *        in: path
+ *        type: integer
+ *        description: The category_id of the list.
+ *     responses:
+ *       200:
+ *         description: Returns the new list.
+ */
+lists.route('/').post(listsController.createList);
 
-lists.get('/lists/:id', (req: Request, res: Response) => {
-  res.send(`List with id ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /lists/{id}:
+ *   patch:
+ *     summary: Update a list
+ *     tags: [Lists]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the list.
+ *     responses:
+ *       200:
+ *         description: returns the list object.
+ */
+lists.route('/:id').patch(listsController.updateList);
 
-lists.get('/lists/:id/edit', (req: Request, res: Response) => {
-  res.send(`Edit form for List ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /lists/{id}:
+ *   put:
+ *     summary: Update a list
+ *     tags: [Lists]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the list.
+ *     responses:
+ *       200:
+ *         description: returns the list object.
+ */
+lists.route('/:id').put(listsController.updateList);
 
-lists.patch('/lists/:id', (req: Request, res: Response) => {
-  res.send(`Update List (PATCH) ${req.params.id}`);
-});
-
-lists.put('/lists/:id', (req: Request, res: Response) => {
-  res.send(`Update List (PUT) ${req.params.id}`);
-});
-
-lists.delete('/lists/:id', (req: Request, res: Response) => {
-  res.send(`Delete List ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /lists/{id}:
+ *   delete:
+ *     summary: Delete a list
+ *     tags: [Lists]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the list.
+ *     responses:
+ *       204:
+ *         description: no content.
+ */
+lists.route('/:id').delete(listsController.deleteList);

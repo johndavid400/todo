@@ -1,34 +1,114 @@
 import { Router, Request, Response } from 'express';
+import * as usersController from '../controllers/users_controller';
+
+/**
+ * @swagger
+ * tags:
+ *   name: Users
+ */
 export const users = Router();
 
-users.get('/users', (req: Request, res: Response) => {
-  res.send('Users');
-});
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Get all users
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: Returns an array of users.
+ */
+users.route('/').get(usersController.getUsers);
 
-users.get('/users/new', (req: Request, res: Response) => {
-  res.send('New User form');
-});
+/**
+ * @swagger
+ * /users/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     tags: [Users]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the user.
+ *     responses:
+ *       200:
+ *         description: Returns an array of users.
+ */
+users.route('/:id').get(usersController.getUser);
 
-users.post('/users', (req: Request, res: Response) => {
-  res.send('Create new User');
-});
+/**
+ * @swagger
+ * /users:
+ *   post:
+ *     summary: Create a new user
+ *     tags: [Users]
+ *     parameters:
+ *      - name: email
+ *        in: body
+ *        type: string
+ *        description: The email of the user.
+ *      - name: password
+ *        in: body
+ *        type: string
+ *        description: The password of the user.
+ *      - name: password_confirmation
+ *        in: body
+ *        type: string
+ *        description: The password (confirmation) of the user.
+ *     responses:
+ *       200:
+ *         description: Returns the new user.
+ */
+users.route('/').post(usersController.createUser);
 
-users.get('/users/:id', (req: Request, res: Response) => {
-  res.send(`User with id ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /users/{id}:
+ *   patch:
+ *     summary: Update a user
+ *     tags: [Users]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the user.
+ *     responses:
+ *       200:
+ *         description: returns the user object.
+ */
+users.route('/:id').patch(usersController.updateUser);
 
-users.get('/users/:id/edit', (req: Request, res: Response) => {
-  res.send(`Edit form for User ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /users/{id}:
+ *   put:
+ *     summary: Update a user
+ *     tags: [Users]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the user.
+ *     responses:
+ *       200:
+ *         description: returns the user object.
+ */
+users.route('/:id').put(usersController.updateUser);
 
-users.patch('/users/:id', (req: Request, res: Response) => {
-  res.send(`Update User (PATCH) ${req.params.id}`);
-});
-
-users.put('/users/:id', (req: Request, res: Response) => {
-  res.send(`Update User (PUT) ${req.params.id}`);
-});
-
-users.delete('/users/:id', (req: Request, res: Response) => {
-  res.send(`Delete User ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /users/{id}:
+ *   delete:
+ *     summary: Delete a user
+ *     tags: [Users]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the user.
+ *     responses:
+ *       204:
+ *         description: no content.
+ */
+users.route('/:id').delete(usersController.deleteUser);

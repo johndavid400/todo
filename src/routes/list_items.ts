@@ -1,34 +1,114 @@
 import { Router, Request, Response } from 'express';
+import * as ListItemsController from '../controllers/list_items_controller';
+
+/**
+ * @swagger
+ * tags:
+ *   name: ListItems
+ */
 export const list_items = Router();
 
-list_items.get('/list_items', (req: Request, res: Response) => {
-  res.send('ListItems');
-});
+/**
+ * @swagger
+ * /list_items:
+ *   get:
+ *     summary: Get all list_items
+ *     tags: [ListItems]
+ *     responses:
+ *       200:
+ *         description: Returns an array of list_items.
+ */
+list_items.route('/').get(ListItemsController.getListItems);
 
-list_items.get('/list_items/new', (req: Request, res: Response) => {
-  res.send('New ListItem form');
-});
+/**
+ * @swagger
+ * /list_items/{id}:
+ *   get:
+ *     summary: Get a list_item by ID
+ *     tags: [ListItems]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the list_item.
+ *     responses:
+ *       200:
+ *         description: Returns an array of list_items.
+ */
+list_items.route('/:id').get(ListItemsController.getListItem);
 
-list_items.post('/list_items', (req: Request, res: Response) => {
-  res.send('Create new ListItem');
-});
+/**
+ * @swagger
+ * /list_items:
+ *   post:
+ *     summary: Create a new list_item
+ *     tags: [ListItems]
+ *     parameters:
+ *      - name: title
+ *        in: path
+ *        type: string
+ *        description: The title of the list_item.
+ *      - name: position
+ *        in: path
+ *        type: integer
+ *        description: The position of the list_item.
+ *      - name: completed
+ *        in: path
+ *        type: boolean
+ *        description: Boolean value representing if the list_item is complete or not.
+ *     responses:
+ *       200:
+ *         description: Returns the new list_item.
+ */
+list_items.route('/').post(ListItemsController.createListItem);
 
-list_items.get('/list_items/:id', (req: Request, res: Response) => {
-  res.send(`ListItem with id ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /list_items/{id}:
+ *   patch:
+ *     summary: Update a list_item
+ *     tags: [ListItems]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the list_item.
+ *     responses:
+ *       200:
+ *         description: returns the list_item object.
+ */
+list_items.route('/:id').patch(ListItemsController.updateListItem);
 
-list_items.get('/list_items/:id/edit', (req: Request, res: Response) => {
-  res.send(`Edit form for ListItem ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /list_items/{id}:
+ *   put:
+ *     summary: Update a list_item
+ *     tags: [ListItems]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the list_item.
+ *     responses:
+ *       200:
+ *         description: returns the list_item object.
+ */
+list_items.route('/:id').put(ListItemsController.updateListItem);
 
-list_items.patch('/list_items/:id', (req: Request, res: Response) => {
-  res.send(`Update ListItem (PATCH) ${req.params.id}`);
-});
-
-list_items.put('/list_items/:id', (req: Request, res: Response) => {
-  res.send(`Update ListItem (PUT) ${req.params.id}`);
-});
-
-list_items.delete('/list_items/:id', (req: Request, res: Response) => {
-  res.send(`Delete ListItem ${req.params.id}`);
-});
+/**
+ * @swagger
+ * /list_items/{id}:
+ *   delete:
+ *     summary: Delete a list_item
+ *     tags: [ListItems]
+ *     parameters:
+ *      - name: id
+ *        in: path
+ *        type: integer
+ *        description: The ID of the list_item.
+ *     responses:
+ *       204:
+ *         description: no content.
+ */
+list_items.route('/:id').delete(ListItemsController.deleteListItem);
