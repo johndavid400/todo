@@ -45,29 +45,31 @@ categories.route('/:id').get(categoriesController.getCategory);
  *   post:
  *     summary: Create a new category
  *     tags: [Categories]
- *     parameters:
- *      - in: body
- *        name: category
- *        description: The name of the category.
- *        schema:
- *          type: object
- *          required:
- *            - userName
- *          properties:
- *            name:
- *              type: string
- *            color_code:
- *              type: string
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                type: string
+ *                required: true
+ *              color_code:
+ *                type: string
  *     responses:
  *       200:
  *         description: Returns the new category.
  */
 categories.route('/').post(
   [
-    param('body', 'name')
+    body('name')
       .isString()
       .isLength({min: 3})
       .trim(),
+    body('color_code')
+      .isString()
+      .isLength({min: 4})
+      .trim()
   ],
   validateRequest,
   categoriesController.createCategory

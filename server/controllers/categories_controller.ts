@@ -18,7 +18,7 @@ export async function getCategory(req: Request, res: Response) {
 }
 
 export function createCategory(req: Request, res: Response) {
-  return res.json({ message: 'Create Category' }).status(200);
+  return res.json({ message: 'Create Category', body: req.body }).status(200);
 }
 
 export function updateCategory(req: Request, res: Response) {
