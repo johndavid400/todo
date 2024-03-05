@@ -1,5 +1,9 @@
 import { Router, Request, Response } from 'express';
 import * as ListItemsController from '../controllers/list_items_controller';
+import { param, query, body } from 'express-validator';
+import { validateRequest } from '../utils/validator';
+import { titleValidator } from '../utils/title_validator';
+import { colorCodeValidator } from '../utils/color_code_validator';
 
 /**
  * @swagger
@@ -44,18 +48,21 @@ list_items.route('/:id').get(ListItemsController.getListItem);
  *     summary: Create a new list_item
  *     tags: [ListItems]
  *     parameters:
- *      - name: title
+ *      - name: list_id
  *        in: path
  *        type: string
- *        description: The title of the list_item.
- *      - name: position
- *        in: path
- *        type: integer
- *        description: The position of the list_item.
- *      - name: completed
- *        in: path
- *        type: boolean
- *        description: Boolean value representing if the list_item is complete or not.
+ *        description: The id of the list.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *                required: true
+ *              position:
+ *                type: integer
  *     responses:
  *       200:
  *         description: Returns the new list_item.

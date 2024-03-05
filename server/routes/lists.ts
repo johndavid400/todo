@@ -43,15 +43,17 @@ lists.route('/:id').get(listsController.getList);
  *   post:
  *     summary: Create a new list
  *     tags: [Lists]
- *     parameters:
- *      - name: title
- *        in: path
- *        type: string
- *        description: The title of the list.
- *      - name: category_id
- *        in: path
- *        type: integer
- *        description: The category_id of the list.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *                required: true
+ *              category_id:
+ *                type: integer
  *     responses:
  *       200:
  *         description: Returns the new list.
@@ -69,6 +71,16 @@ lists.route('/').post(listsController.createList);
  *        in: path
  *        type: integer
  *        description: The ID of the list.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              category_id:
+ *                type: integer
  *     responses:
  *       200:
  *         description: returns the list object.
@@ -86,6 +98,16 @@ lists.route('/:id').patch(listsController.updateList);
  *        in: path
  *        type: integer
  *        description: The ID of the list.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              category_id:
+ *                type: integer
  *     responses:
  *       200:
  *         description: returns the list object.
