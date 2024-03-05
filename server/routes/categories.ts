@@ -1,5 +1,7 @@
 import { Router, Request, Response } from 'express';
 import * as categoriesController from '../controllers/categories_controller';
+import { param, query, body } from 'express-validator';
+import { validateRequest } from '../utils/validator';
 
 /**
  * @swagger
@@ -44,19 +46,32 @@ categories.route('/:id').get(categoriesController.getCategory);
  *     summary: Create a new category
  *     tags: [Categories]
  *     parameters:
- *      - name: name
- *        in: path
- *        type: string
+ *      - in: body
+ *        name: category
  *        description: The name of the category.
- *      - name: color_code
- *        in: path
- *        type: string
- *        description: The HTML color hex value of the category.
+ *        schema:
+ *          type: object
+ *          required:
+ *            - userName
+ *          properties:
+ *            name:
+ *              type: string
+ *            color_code:
+ *              type: string
  *     responses:
  *       200:
  *         description: Returns the new category.
  */
-categories.route('/').post(categoriesController.createCategory);
+categories.route('/').post(
+  [
+    param('body', 'name')
+      .isString()
+      .isLength({min: 3})
+      .trim(),
+  ],
+  validateRequest,
+  categoriesController.createCategory
+);
 
 /**
  * @swagger
