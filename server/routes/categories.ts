@@ -51,7 +51,7 @@ categories.route('/:id').get(categoriesController.getCategory);
  *          schema:
  *            type: object
  *            properties:
- *              name:
+ *              title:
  *                type: string
  *                required: true
  *              color_code:
@@ -62,7 +62,7 @@ categories.route('/:id').get(categoriesController.getCategory);
  */
 categories.route('/').post(
   [
-    body('name')
+    body('title')
       .isString()
       .isLength({min: 3})
       .trim(),
@@ -86,6 +86,16 @@ categories.route('/').post(
  *        in: path
  *        type: integer
  *        description: The ID of the category.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              color_code:
+ *                type: string
  *     responses:
  *       200:
  *         description: returns the category object.
@@ -103,6 +113,16 @@ categories.route('/:id').patch(categoriesController.updateCategory);
  *        in: path
  *        type: integer
  *        description: The ID of the category.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              color_code:
+ *                type: string
  *     responses:
  *       200:
  *         description: returns the category object.
