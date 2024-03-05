@@ -1,0 +1,12 @@
+FROM node:18
+
+RUN apt-get update
+RUN apt-get install -y openssl
+
+WORKDIR /app
+
+RUN npm install -g nodemon
+
+ENTRYPOINT ["sh", "-c"]
+
+CMD ["npm install && npm run dev"]

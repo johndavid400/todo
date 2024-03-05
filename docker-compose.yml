@@ -1,19 +1,5 @@
 version: '3'
 services:
-  api:
-    image: todo-app-express
-    build: .
-    networks:
-      - backend
-    ports:
-      - "5000:5000"
-
-  web-cli:
-    image: todo-app-express
-    networks:
-      - backend
-    command: sh
-
   db:
     image: postgres:latest
     restart: always
@@ -33,6 +19,20 @@ services:
       - ./db:/flyway/sql
     depends_on:
       - db
+
+  api:
+    image: todo-app-express
+    build:
+      context: ./src
+      dockerfile: Dockerfile.local
+    networks:
+      - backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./src:/app
+    environment:
+      DATABASE_URL: "postgres://postgres:password@db:5432/todo_db?schema=public"
 
 volumes:
   db:
