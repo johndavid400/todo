@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model categories {
+  id         Int     @id @default(autoincrement())
+  user_id    Int
+  title      String  @db.VarChar
+  color_code String  @db.VarChar
+  users      users   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  lists      lists[]
+}
+
+model flyway_schema_history {
+  installed_rank Int      @id(map: "flyway_schema_history_pk")
+  version        String?  @db.VarChar(50)
+  description    String   @db.VarChar(200)
+  type           String   @db.VarChar(20)
+  script         String   @db.VarChar(1000)
+  checksum       Int?
+  installed_by   String   @db.VarChar(100)
+  installed_on   DateTime @default(now()) @db.Timestamp(6)
+  execution_time Int
+  success        Boolean
+
+  @@index([success], map: "flyway_schema_history_s_idx")
+}
+
+model list_items {
+  id           Int       @id @default(autoincrement())
+  list_id      Int
+  title        String    @db.VarChar
+  position     Int
+  created_at   DateTime  @db.Timestamp(6)
+  completed_at DateTime? @db.Timestamp(6)
+  lists        lists     @relation(fields: [list_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model lists {
+  id          Int          @id @default(autoincrement())
+  user_id     Int
+  category_id Int?
+  title       String       @db.VarChar
+  created_at  DateTime     @db.Timestamp(6)
+  list_items  list_items[]
+  categories  categories?  @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users       users        @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model users {
+  id                 Int          @id @default(autoincrement())
+  email              String       @db.VarChar
+  encrypted_password String       @db.VarChar
+  categories         categories[]
+  lists              lists[]
+}
