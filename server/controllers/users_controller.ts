@@ -1,21 +1,59 @@
 import { Request, Response } from 'express';
+import * as bcrypt from 'bcryptjs';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
-export function getUsers(req: Request, res: Response) {
-  return res.json({ message: 'Get Users' }).status(200);
+export async function getUsers(req: Request, res: Response) {
+  const users = await prisma.users.findMany();
+  return res.json(users).status(200);
 }
 
-export function getUser(req: Request, res: Response) {
-  return res.json({ message: 'Get User', params: req.params }).status(200);
+export async function getUser(req: Request, res: Response) {
+  const user = await prisma.users.findFirst({
+    where: {
+      id: parseInt(req.params.id)
+    },
+  });
+  return res.json(user).status(200);
 }
 
-export function createUser(req: Request, res: Response) {
-  return res.json({ message: 'Create User' }).status(200);
+export async function createUser(req: Request, res: Response) {
+  const { email, password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const user = await prisma.users.create({
+    data: {
+      email: email,
+      encrypted_password: hashedPassword
+    },
+  });
+  return res.json(user).status(200);
 }
 
-export function updateUser(req: Request, res: Response) {
-  return res.json({ message: 'Update User', params: req.params }).status(200);
+export async function updateUser(req: Request, res: Response) {
+  const { id } = req.params;
+  const { password } = req.body;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  try {
+    const user = await prisma.users.update({
+      where: { id: Number(id) },
+      data: {
+        encrypted_password: hashedPassword
+      },
+    })
+    return res.json(user).status(200);
+  } catch (error) {
+    res.json({ error: `User with ID ${id} does not exist in the database` })
+  }
 }
 
-export function deleteUser(req: Request, res: Response) {
-  return res.json({ message: 'Delete User', params: req.params }).status(200);
+export async function deleteUser(req: Request, res: Response) {
+  const { id } = req.params;
+  const user = await prisma.users.delete({
+    where: {
+      id: Number(id)
+    },
+  })
+  return res.json(user).status(200);
 }

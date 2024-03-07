@@ -1,5 +1,9 @@
 import { Router, Request, Response } from 'express';
 import * as listsController from '../controllers/lists_controller';
+import { param, query, body } from 'express-validator';
+import { validateRequest } from '../utils/validator';
+import { titleValidator } from '../utils/title_validator';
+import { categoryIdValidator } from '../utils/category_id_validator';
 
 /**
  * @swagger
@@ -58,7 +62,11 @@ lists.route('/:id').get(listsController.getList);
  *       200:
  *         description: Returns the new list.
  */
-lists.route('/').post(listsController.createList);
+lists.route('/').post(
+  [titleValidator, categoryIdValidator],
+  validateRequest,
+  listsController.createList
+);
 
 /**
  * @swagger
@@ -85,7 +93,11 @@ lists.route('/').post(listsController.createList);
  *       200:
  *         description: returns the list object.
  */
-lists.route('/:id').patch(listsController.updateList);
+lists.route('/:id').patch(
+  [titleValidator, categoryIdValidator],
+  validateRequest,
+  listsController.updateList
+);
 
 /**
  * @swagger
@@ -112,7 +124,11 @@ lists.route('/:id').patch(listsController.updateList);
  *       200:
  *         description: returns the list object.
  */
-lists.route('/:id').put(listsController.updateList);
+lists.route('/:id').put(
+  [titleValidator, categoryIdValidator],
+  validateRequest,
+  listsController.updateList
+);
 
 /**
  * @swagger

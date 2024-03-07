@@ -1,5 +1,9 @@
 import { Router, Request, Response } from 'express';
 import * as usersController from '../controllers/users_controller';
+import { param, query, body } from 'express-validator';
+import { validateRequest } from '../utils/validator';
+import { emailValidator } from '../utils/email_validator';
+import { passwordValidator } from '../utils/password_validator';
 
 /**
  * @swagger
@@ -43,24 +47,30 @@ users.route('/:id').get(usersController.getUser);
  *   post:
  *     summary: Create a new user
  *     tags: [Users]
- *     parameters:
- *      - name: email
- *        in: body
- *        type: string
- *        description: The email of the user.
- *      - name: password
- *        in: body
- *        type: string
- *        description: The password of the user.
- *      - name: password_confirmation
- *        in: body
- *        type: string
- *        description: The password (confirmation) of the user.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              email:
+ *                type: string
+ *                required: true
+ *              password:
+ *                type: string
+ *                required: true
+ *              password_confirmation:
+ *                type: string
+ *                required: true
  *     responses:
  *       200:
  *         description: Returns the new user.
  */
-users.route('/').post(usersController.createUser);
+users.route('/').post(
+  [emailValidator, passwordValidator],
+  validateRequest,
+  usersController.createUser
+);
 
 /**
  * @swagger
@@ -73,11 +83,27 @@ users.route('/').post(usersController.createUser);
  *        in: path
  *        type: integer
  *        description: The ID of the user.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              password:
+ *                type: string
+ *                required: true
+ *              password_confirmation:
+ *                type: string
+ *                required: true
  *     responses:
  *       200:
  *         description: returns the user object.
  */
-users.route('/:id').patch(usersController.updateUser);
+users.route('/:id').patch(
+  [emailValidator, passwordValidator],
+  validateRequest,
+  usersController.updateUser
+);
 
 /**
  * @swagger
@@ -90,11 +116,27 @@ users.route('/:id').patch(usersController.updateUser);
  *        in: path
  *        type: integer
  *        description: The ID of the user.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              password:
+ *                type: string
+ *                required: true
+ *              password_confirmation:
+ *                type: string
+ *                required: true
  *     responses:
  *       200:
  *         description: returns the user object.
  */
-users.route('/:id').put(usersController.updateUser);
+users.route('/:id').put(
+  [emailValidator, passwordValidator],
+  validateRequest,
+  usersController.updateUser
+);
 
 /**
  * @swagger
