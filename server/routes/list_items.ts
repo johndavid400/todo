@@ -3,7 +3,8 @@ import * as ListItemsController from '../controllers/list_items_controller';
 import { param, query, body } from 'express-validator';
 import { validateRequest } from '../utils/validator';
 import { titleValidator } from '../utils/title_validator';
-import { colorCodeValidator } from '../utils/color_code_validator';
+import { positionValidator } from '../utils/position_validator';
+import { completedAtValidator } from '../utils/completed_at_validator';
 
 /**
  * @swagger
@@ -67,7 +68,11 @@ list_items.route('/:id').get(ListItemsController.getListItem);
  *       200:
  *         description: Returns the new list_item.
  */
-list_items.route('/').post(ListItemsController.createListItem);
+list_items.route('/').post(
+  [titleValidator, positionValidator, completedAtValidator],
+  validateRequest,
+  ListItemsController.createListItem
+);
 
 /**
  * @swagger
@@ -84,7 +89,11 @@ list_items.route('/').post(ListItemsController.createListItem);
  *       200:
  *         description: returns the list_item object.
  */
-list_items.route('/:id').patch(ListItemsController.updateListItem);
+list_items.route('/:id').patch(
+  [titleValidator, positionValidator, completedAtValidator],
+  validateRequest,
+  ListItemsController.updateListItem
+);
 
 /**
  * @swagger
@@ -101,7 +110,11 @@ list_items.route('/:id').patch(ListItemsController.updateListItem);
  *       200:
  *         description: returns the list_item object.
  */
-list_items.route('/:id').put(ListItemsController.updateListItem);
+list_items.route('/:id').put(
+  [titleValidator, positionValidator, completedAtValidator],
+  validateRequest,
+  ListItemsController.updateListItem
+);
 
 /**
  * @swagger
