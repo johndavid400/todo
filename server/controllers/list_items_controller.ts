@@ -21,10 +21,10 @@ export async function createListItem(req: Request, res: Response) {
   const { title, position } = req.body;
   const list_item = await prisma.list_items.create({
     data: {
-      title: title,
+      title: title || undefined,
       position: Number(position),
       list_id: Number(list_id),
-      created_at: new Date()
+      created_at: new Date() || undefined
     },
   });
   // TODO figure out how to dynamically set the user_id
@@ -33,19 +33,22 @@ export async function createListItem(req: Request, res: Response) {
 
 export async function updateListItem(req: Request, res: Response) {
   const { id } = req.params;
-  const { title, position } = req.body;
+  const { title, position, completed } = req.body;
+  const completed_at = completed ? new Date() : null;
 
   try {
     const list_item = await prisma.list_items.update({
       where: { id: Number(id) },
       data: {
-        title: title,
-        position: Number(position)
+        title: title || undefined,
+        position: Number(position) || undefined,
+        completed_at: completed_at || undefined
       },
     })
     return res.json(list_item).status(200);
   } catch (error) {
-    res.json({ error: `ListItem with ID ${id} does not exist in the database` })
+    res.json(error)
+    //res.json({ error: `ListItem with ID ${id} does not exist in the database` })
   }
 }
 

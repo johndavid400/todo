@@ -20,10 +20,10 @@ export async function createList(req: Request, res: Response) {
   const { title, category_id } = req.body;
   const list = await prisma.lists.create({
     data: {
-      title: title,
-      category_id: 1,
-      user_id: 1,
-      created_at: new Date()
+      title: title || undefined,
+      category_id: category_id || undefined,
+      user_id: 1 || undefined,
+      created_at: new Date() || undefined
     },
   });
   // TODO figure out how to dynamically set the user_id
@@ -38,8 +38,8 @@ export async function updateList(req: Request, res: Response) {
     const list = await prisma.lists.update({
       where: { id: Number(id) },
       data: {
-        title: title,
-        category_id: category_id
+        title: title || undefined,
+        category_id: category_id || undefined
       },
     })
     return res.json(list).status(200);

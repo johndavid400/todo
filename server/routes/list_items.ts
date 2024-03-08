@@ -2,9 +2,6 @@ import { Router, Request, Response } from 'express';
 import * as ListItemsController from '../controllers/list_items_controller';
 import { param, query, body } from 'express-validator';
 import { validateRequest } from '../utils/validator';
-import { titleValidator } from '../utils/title_validator';
-import { positionValidator } from '../utils/position_validator';
-import { completedAtValidator } from '../utils/completed_at_validator';
 
 /**
  * @swagger
@@ -69,7 +66,15 @@ list_items.route('/:id').get(ListItemsController.getListItem);
  *         description: Returns the new list_item.
  */
 list_items.route('/').post(
-  [titleValidator, positionValidator, completedAtValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim()
+      .optional({nullable: true}),
+    body('position')
+      .isInt()
+  ],
   validateRequest,
   ListItemsController.createListItem
 );
@@ -85,12 +90,37 @@ list_items.route('/').post(
  *        in: path
  *        type: integer
  *        description: The ID of the list_item.
+ *     requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              title:
+ *                type: string
+ *              position:
+ *                type: integer
+ *              completed:
+ *                type: boolean
  *     responses:
  *       200:
  *         description: returns the list_item object.
  */
 list_items.route('/:id').patch(
-  [titleValidator, positionValidator, completedAtValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim()
+      .optional({nullable: true}),
+    body('position')
+      .isInt()
+      .optional({nullable: true}),
+    body('completed_at')
+      .isString()
+      .trim()
+      .optional({nullable: true})
+  ],
   validateRequest,
   ListItemsController.updateListItem
 );
@@ -111,7 +141,20 @@ list_items.route('/:id').patch(
  *         description: returns the list_item object.
  */
 list_items.route('/:id').put(
-  [titleValidator, positionValidator, completedAtValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim()
+      .optional({nullable: true}),
+    body('position')
+      .isInt()
+      .optional({nullable: true}),
+    body('completed_at')
+      .isString()
+      .trim()
+      .optional({nullable: true})
+  ],
   validateRequest,
   ListItemsController.updateListItem
 );

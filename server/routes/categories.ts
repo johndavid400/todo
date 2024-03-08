@@ -2,8 +2,6 @@ import { Router, Request, Response } from 'express';
 import * as categoriesController from '../controllers/categories_controller';
 import { param, query, body } from 'express-validator';
 import { validateRequest } from '../utils/validator';
-import { titleValidator } from '../utils/title_validator';
-import { colorCodeValidator } from '../utils/color_code_validator';
 
 /**
  * @swagger
@@ -63,7 +61,17 @@ categories.route('/:id').get(categoriesController.getCategory);
  *         description: Returns the new category.
  */
 categories.route('/').post(
-  [titleValidator, colorCodeValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim(),
+    body('color_code')
+      .isString()
+      .isLength({min: 4})
+      .trim()
+      .optional({nullable: true}),
+  ],
   validateRequest,
   categoriesController.createCategory
 );
@@ -94,7 +102,18 @@ categories.route('/').post(
  *         description: returns the category object.
  */
 categories.route('/:id').patch(
-  [titleValidator, colorCodeValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim()
+      .optional({nullable: true}),
+    body('color_code')
+      .isString()
+      .isLength({min: 4})
+      .trim()
+      .optional({nullable: true}),
+  ],
   validateRequest,
   categoriesController.updateCategory
 );
@@ -125,7 +144,18 @@ categories.route('/:id').patch(
  *         description: returns the category object.
  */
 categories.route('/:id').put(
-  [titleValidator, colorCodeValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim()
+      .optional({nullable: true}),
+    body('color_code')
+      .isString()
+      .isLength({min: 4})
+      .trim()
+      .optional({nullable: true}),
+  ],
   validateRequest,
   categoriesController.updateCategory
 );

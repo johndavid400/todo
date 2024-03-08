@@ -2,8 +2,6 @@ import { Router, Request, Response } from 'express';
 import * as listsController from '../controllers/lists_controller';
 import { param, query, body } from 'express-validator';
 import { validateRequest } from '../utils/validator';
-import { titleValidator } from '../utils/title_validator';
-import { categoryIdValidator } from '../utils/category_id_validator';
 
 /**
  * @swagger
@@ -63,7 +61,12 @@ lists.route('/:id').get(listsController.getList);
  *         description: Returns the new list.
  */
 lists.route('/').post(
-  [titleValidator, categoryIdValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim()
+  ],
   validateRequest,
   listsController.createList
 );
@@ -94,7 +97,16 @@ lists.route('/').post(
  *         description: returns the list object.
  */
 lists.route('/:id').patch(
-  [titleValidator, categoryIdValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim()
+      .optional({nullable: true}),
+    body('category_id')
+      .isInt()
+      .optional({nullable: true}),
+  ],
   validateRequest,
   listsController.updateList
 );
@@ -125,7 +137,16 @@ lists.route('/:id').patch(
  *         description: returns the list object.
  */
 lists.route('/:id').put(
-  [titleValidator, categoryIdValidator],
+  [
+    body('title')
+      .isString()
+      .isLength({min: 3})
+      .trim()
+      .optional({nullable: true}),
+    body('category_id')
+      .isInt()
+      .optional({nullable: true}),
+  ],
   validateRequest,
   listsController.updateList
 );

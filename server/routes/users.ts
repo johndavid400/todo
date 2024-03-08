@@ -2,8 +2,6 @@ import { Router, Request, Response } from 'express';
 import * as usersController from '../controllers/users_controller';
 import { param, query, body } from 'express-validator';
 import { validateRequest } from '../utils/validator';
-import { emailValidator } from '../utils/email_validator';
-import { passwordValidator } from '../utils/password_validator';
 
 /**
  * @swagger
@@ -67,7 +65,28 @@ users.route('/:id').get(usersController.getUser);
  *         description: Returns the new user.
  */
 users.route('/').post(
-  [emailValidator, passwordValidator],
+  [
+    body('email')
+      .isString()
+      .isLength({min: 5})
+      .trim()
+      .custom((value, { req }) => {
+        // const user = await prisma.users.findFirst({ where: { email: value } })
+        if (false) {
+          throw new Error('Email is taken');
+        }
+        return true
+      }),
+    body('password')
+      .isLength({ min: 5 }),
+    body('password_confirmation')
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Passwords must match');
+        }
+        return true
+      })
+  ],
   validateRequest,
   usersController.createUser
 );
@@ -100,7 +119,17 @@ users.route('/').post(
  *         description: returns the user object.
  */
 users.route('/:id').patch(
-  [emailValidator, passwordValidator],
+  [
+    body('password')
+      .isLength({ min: 5 }),
+    body('password_confirmation')
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Passwords must match');
+        }
+        return true
+      })
+  ],
   validateRequest,
   usersController.updateUser
 );
@@ -133,7 +162,17 @@ users.route('/:id').patch(
  *         description: returns the user object.
  */
 users.route('/:id').put(
-  [emailValidator, passwordValidator],
+  [
+    body('password')
+      .isLength({ min: 5 }),
+    body('password_confirmation')
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Passwords must match');
+        }
+        return true
+      })
+  ],
   validateRequest,
   usersController.updateUser
 );

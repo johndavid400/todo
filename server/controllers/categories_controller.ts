@@ -20,9 +20,9 @@ export async function createCategory(req: Request, res: Response) {
   const { title, color_code } = req.body;
   const category = await prisma.categories.create({
     data: {
-      title: title,
-      color_code: color_code,
-      user_id: 1
+      title: title || undefined,
+      color_code: color_code || undefined,
+      user_id: 1 || undefined
     },
   });
   // TODO figure out how to dynamically set the user_id
@@ -37,8 +37,8 @@ export async function updateCategory(req: Request, res: Response) {
     const category = await prisma.categories.update({
       where: { id: Number(id) },
       data: {
-        title: title,
-        color_code: color_code
+        title: title || undefined,
+        color_code: color_code || undefined
       },
     })
     return res.json(category).status(200);
