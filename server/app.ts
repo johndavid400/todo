@@ -18,11 +18,34 @@ dotenv.config();
 const options = {
   failOnErrors: true, // Whether or not to throw when parsing errors. Defaults to false.
   definition: {
-    openapi: '3.0.0',
+    openapi: "3.0.0",
     info: {
-      title: 'Todo App',
-      version: '1.0.0',
+      title: "Test API",
+      version: "1.0.0"
     },
+    servers: [
+      {
+        url: "http://localhost:5000",
+        description: "Local development server"
+      }
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          in: "header",
+          name: "Authorization",
+          description: "Bearer token to access api endpoints",
+          scheme: "bearer",
+          bearerFormat: "JWT"
+        }
+      }
+    },
+    security: [
+      {
+        bearerAuth: []
+      }
+    ]
   },
   apis: ['./routes/**.ts', `${__dirname}/routes/*.ts`],
 };
@@ -31,6 +54,7 @@ const swaggerSpec = swaggerDocs(options);
 const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   if (req.path === "/auth/login" && req.method == "POST") return next();
   if (req.path.match("docs")) return next();
+  if (req.path.match("swagger")) return next();
  
   const splitAuth = req.headers.authorization?.split(" ");
   const token = splitAuth && splitAuth.length >= 2 && splitAuth[1];
@@ -67,5 +91,9 @@ app.use("/categories", categories);
 app.use("/lists", lists);
 app.use("/list_items", list_items);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+app.use("/swagger.json", (req, res) =>
+  res.json(swaggerSpec).status(200)
+);
 
 export { app };
