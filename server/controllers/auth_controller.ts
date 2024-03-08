@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
@@ -14,7 +15,10 @@ export async function login(req: Request, res: Response) {
     const passwordsMatch = await bcrypt.compare(password, user.encrypted_password);
     if (passwordsMatch) {
       // generate and return JWT
-      return res.json(user).status(200);
+      const accessToken = jwt.sign({ sub: user.id, email: user.email }, `${process.env.SECRET_KEY}`, {
+        expiresIn: 1200
+      });
+      return res.json(accessToken).status(200);
     }
     else {
       return res.json({"response": "Invalid login credentials: Password does not match"}).status(400);

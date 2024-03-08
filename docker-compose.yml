@@ -31,6 +31,7 @@ services:
       - ./server:/app
     environment:
       DATABASE_URL: "postgres://postgres:password@db:5432/todo_db?schema=public"
+      SECRET_KEY: "4ab1fd45c64dd587dd0a156647706f49"
 
 volumes:
   db:
