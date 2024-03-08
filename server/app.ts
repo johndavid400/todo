@@ -1,10 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import swaggerDocs from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
+import * as jwt from 'jsonwebtoken';
 
 import { auth } from "./routes/auth";
 import { users } from "./routes/users";
@@ -27,6 +28,27 @@ const options = {
 };
 const swaggerSpec = swaggerDocs(options);
 
+const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+  if (req.path === "/auth/login" && req.method == "POST") return next();
+  if (req.path.match("docs")) return next();
+ 
+  const splitAuth = req.headers.authorization?.split(" ");
+  const token = splitAuth && splitAuth.length >= 2 && splitAuth[1];
+  if (token) {
+    try {
+      const tokenVerified = jwt.verify(token, `${process.env.SECRET_KEY}`);
+      if (tokenVerified) {
+        console.log(tokenVerified);
+        res.locals.user = tokenVerified.sub;
+        return next();
+      }
+    } catch {
+      return res.sendStatus(401);
+    }
+  }
+  return res.sendStatus(401);
+};
+
 const app = express();
 
 app.use(cors());
@@ -39,6 +61,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.use("/auth", auth);
+app.all("*", verifyToken);
 app.use("/users", users);
 app.use("/categories", categories);
 app.use("/lists", lists);
