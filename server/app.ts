@@ -6,7 +6,7 @@ import morgan from 'morgan';
 import swaggerDocs from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
 
-
+import { auth } from "./routes/auth";
 import { users } from "./routes/users";
 import { categories } from "./routes/categories";
 import { lists } from "./routes/lists";
@@ -38,6 +38,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Home page');
 });
 
+app.use("/auth", auth);
 app.use("/users", users);
 app.use("/categories", categories);
 app.use("/lists", lists);
