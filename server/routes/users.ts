@@ -2,6 +2,9 @@ import { Router, Request, Response } from 'express';
 import * as usersController from '../controllers/users_controller';
 import { param, query, body } from 'express-validator';
 import { validateRequest } from '../utils/validator';
+//import * as prismaHelpers from '../utils/prisma_helpers';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 /**
  * @swagger
@@ -70,10 +73,10 @@ users.route('/').post(
       .isString()
       .isLength({min: 5})
       .trim()
-      .custom((value, { req }) => {
-        // const user = await prisma.users.findFirst({ where: { email: value } })
-        if (false) {
-          throw new Error('Email is taken');
+      .custom(async (value, { req }) => {
+        const user = await prisma.users.findFirst({ where: { email: value } });
+        if (user) {
+          throw new Error('Email is taken.');
         }
         return true
       }),
