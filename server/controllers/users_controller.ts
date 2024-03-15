@@ -1,19 +1,17 @@
 import { Request, Response } from 'express';
+import * as UserService from '../services/user_service';
+
 import * as bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function getUsers(req: Request, res: Response) {
-  const users = await prisma.users.findMany();
+  const users = await UserService.getUsers();
   return res.json(users).status(200);
 }
 
 export async function getUser(req: Request, res: Response) {
-  const user = await prisma.users.findFirst({
-    where: {
-      id: parseInt(req.params.id)
-    },
-  });
+  const user = await UserService.getUser(Number(req.params.id))
   return res.json(user).status(200);
 }
 
