@@ -1,12 +1,14 @@
+import { describe, expect, it } from "@jest/globals";
 import { when } from "jest-when";
-import { mockRequest, mockResponse } from "../../utils/__tests__/mock_request";
+import { mockRequest, mockResponse } from "../../testUtils/mock_request";
 import * as usersController from "../users_controller";
+import * as userService from "../../services/user_service";
 
-describe("UsersController", () => {
-  describe("getUsers", () => {
-    it('should sanity check', () => {
-      expect(2+2).toBe(4);
-    });
+//jest.mock("../../services/user_service");
+
+describe('something', () => {
+  it('should sanity check', () => {
+    expect(2+2).toBe(4);
   });
 });
 

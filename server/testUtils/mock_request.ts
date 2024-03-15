@@ -11,11 +11,13 @@ interface mockRequestArgs {
 
 const mockRequest = (args?: mockRequestArgs) => {
   const get = (name: string) => {
-    if (name === "authorization") return `Bearer ${args.token}`;
+    if (name === "authorization") return `Bearer ${args?.token}`;
     return null;
   };
 
-  const user = { id: 1 };
+  const user = {
+    id: 1
+  };
 
   return {
     ...args,
