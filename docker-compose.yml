@@ -21,6 +21,7 @@ services:
       - db
 
   api:
+    profile: ["dev"]
     image: todo-app-express
     build:
       context: ./server
