@@ -10,12 +10,20 @@ defaults:
     working-directory: ./server
 
 jobs:
-  verify:
+  execute:
     runs-on: ubuntu-latest
     steps:
       - name: 🛎 Checkout
         uses: actions/checkout@v3
+      - name: Start docker compose
+        run: docker compose --profile dev up -d --wait && sleep 30
       - name: Install
-        run: npm i
+        run:  npm i
       - name: Test
-        run: npm run test
+        run:  npm run test:unit
+      - name: Output the run Details
+        uses: actions/upload-artifact@v3
+        if: success()
+        with:
+          name: TestOutput
+          path: ./test/api/html-report

@@ -8,6 +8,7 @@
     "start": "npm run build && node build/index.js",
     "prisma:generate": "prisma generate",
     "prisma:pull": "prisma db pull",
+    "postinstall": "npm run prisma:pull && npm run prisma:generate",
     "test": "jest",
     "test:unit": "jest --testPathIgnorePatterns ./routers/",
     "test:unit:watch": "jest --watch --testPathIgnorePatterns ./routers/",
