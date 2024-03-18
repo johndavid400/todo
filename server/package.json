@@ -8,11 +8,12 @@
     "start": "npm run build && node build/index.js",
     "prisma:generate": "prisma generate",
     "prisma:pull": "prisma db pull",
-    "postinstall": "npm run prisma:pull && npm run prisma:generate",
+    "postinstalll": "npm run prisma:pull && npm run prisma:generate",
     "test": "jest",
-    "test:unit": "jest --testPathIgnorePatterns ./routers/",
-    "test:unit:watch": "jest --watch --testPathIgnorePatterns ./routers/",
-    "test:integration": "jest --config ./jest.integration.config.ts --testPathPattern ./routers/ --forceExit "
+    "test-junit": "jest --ci --reporters=default --reporters=jest-junit",
+    "test:unit": "jest --testPathIgnorePatterns ./routes/",
+    "test:unit:watch": "jest --watch --testPathIgnorePatterns ./routes/",
+    "test:integration": "jest --config ./jest.integration.config.ts --testPathPattern ./routes/ --forceExit "
   },
   "dependencies": {
     "@prisma/client": "^5.10.2",
@@ -44,6 +45,7 @@
     "@types/swagger-jsdoc": "^6.0.4",
     "@types/swagger-ui-express": "^4.1.6",
     "jest": "^29.7.0",
+    "jest-junit": "^16.0.0",
     "jest-when": "^3.6.0",
     "nodemon": "^3.1.0",
     "prisma": "^5.10.2",
@@ -51,5 +53,15 @@
     "testcontainers": "^10.7.2",
     "ts-jest": "^29.1.2",
     "typescript": "^5.3.3"
+  },
+  "jest-junit": {
+    "outptuDirectory": "reports",
+    "outputName": "jest-junit.xml",
+    "ancestorSeprator": " > ",
+    "uniqueOutputName": "false",
+    "suiteNameTemplate": "{filepath}",
+    "classNameTemplate": "{classname}",
+    "titleTemplate": "{title}"
   }
+
 }
