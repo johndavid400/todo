@@ -53,6 +53,8 @@ const swaggerSpec = swaggerDocs(options);
 
 const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
   if (req.path === "/auth/login" && req.method == "POST") return next();
+  if (req.path === "/users" && req.method == "POST") return next();
+  if (req.path === "/categories" && req.method == "GET") return next();
   if (req.path.match("docs")) return next();
   if (req.path.match("swagger")) return next();
  
