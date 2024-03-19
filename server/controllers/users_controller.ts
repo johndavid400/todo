@@ -1,9 +1,7 @@
 import { Request, Response } from 'express';
-import * as UserService from '../services/user_service';
-
+import { prisma } from '../utils/prisma';
 import * as bcrypt from 'bcryptjs';
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import * as UserService from '../services/user_service';
 
 export async function getUsers(req: Request, res: Response) {
   const users = await UserService.getUsers();
