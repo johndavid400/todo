@@ -1,15 +1,15 @@
 import { Request, Response } from 'express';
 import { prisma } from '../utils/prisma';
 import * as bcrypt from 'bcryptjs';
-import * as UserService from '../services/user_service';
+import * as userService from '../services/user_service';
 
 export async function getUsers(req: Request, res: Response) {
-  const users = await UserService.getUsers();
+  const users = await userService.getUsers();
   return res.json(users).status(200);
 }
 
 export async function getUser(req: Request, res: Response) {
-  const user = await UserService.getUser(Number(req.params.id))
+  const user = await userService.getUser(Number(req.params.id));
   return res.json(user).status(200);
 }
 

@@ -1,17 +1,14 @@
 import { Request, Response } from 'express';
 import { prisma } from '../utils/prisma';
+import * as categoryService from '../services/category_service';
 
 export async function getCategories(req: Request, res: Response) {
-  const categories = await prisma.categories.findMany();
+  const categories = await categoryService.getCategories();
   return res.json(categories).status(200);
 }
 
 export async function getCategory(req: Request, res: Response) {
-  const category = await prisma.categories.findFirst({
-    where: {
-      id: parseInt(req.params.id)
-    },
-  });
+  const category = await categoryService.getCategory(Number(req.params.id));
   return res.json(category).status(200);
 }
 

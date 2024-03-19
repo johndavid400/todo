@@ -1,21 +1,43 @@
+import { describe, expect, it } from "@jest/globals";
 import { when } from "jest-when";
-import * as categoriesController from '../categories_controller';
 import { mockRequest, mockResponse } from '../../testUtils/mock_request';
-import { prisma } from "../../utils/prisma";
-import { prismaMock } from "./../../testUtils/prisma";
+import * as categoriesController from '../categories_controller';
+import * as categoryService from "../../services/category_service";
 
-jest.mock('@prisma/client');
+jest.mock("../../services/category_service");
 
-describe("categories controller", () => {
-  it("Should return 200 when categories available", async () => {
-    const userId = 1;
-    const req = mockRequest({ locals: { userId: userId } });
-    const res = mockResponse(userId);
+describe('Categories controller', () => {
+  describe('getCategories', () => {
+    it('returns categories', async () => {
+      const userId = 1;
+      const req = mockRequest({ locals: { userId: userId } });
+      const res = mockResponse(userId);
+      const mockReturnValue = [] as any;
 
-    const categories = [{ id: 1 }];
-    prismaMock.categories = { findMany: jest.fn().mockReturnValueOnce(categories) };
+      when(categoryService.getCategories)
+          .calledWith()
+          .mockReturnValueOnce(mockReturnValue);
 
-    const result = await categoriesController.getCategories(req, res);
-    expect(prisma.categories.findMany).toHaveBeenCalledTimes(1);
+      await categoriesController.getCategories(req, res);
+
+      expect(categoryService.getCategories).toHaveBeenCalledTimes(1);
+    });
+  });
+  describe('getCategory', () => {
+    it('returns a category', async () => {
+      const userId = 1;
+      const req = mockRequest({ params: {id: 1}, locals: { userId: userId } });
+      const res = mockResponse(userId);
+      const mockReturnValue = [] as any;
+
+      when(categoryService.getCategory)
+          .calledWith(1)
+          .mockReturnValueOnce(mockReturnValue);
+
+      await categoriesController.getCategory(req, res);
+
+      expect(categoryService.getCategory).toHaveBeenCalledTimes(1);
+    });
   });
 });
+
