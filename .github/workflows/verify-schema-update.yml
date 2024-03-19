@@ -36,7 +36,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Commit for snapshot update
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '30s'
+      - name: execute flyway in docker 🐳
+        run: docker compose down
