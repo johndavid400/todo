@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="15" failures="0" errors="0" time="2.502">
-  <testsuite name="services/__tests__/category.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T20:38:48" time="2.081" tests="1">
-    <testcase classname="getCategories" name="should return all categories" time="0.015">
+<testsuites name="jest tests" tests="15" failures="0" errors="0" time="2.939">
+  <testsuite name="services/__tests__/list.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T21:03:35" time="2.494" tests="1">
+    <testcase classname="getLists" name="should return all lists" time="0.01">
     </testcase>
   </testsuite>
-  <testsuite name="controllers/__tests__/category.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T20:38:48" time="2.111" tests="2">
-    <testcase classname="Categories controller getCategories" name="returns categories" time="0.033">
+  <testsuite name="services/__tests__/category.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T21:03:35" time="2.5" tests="1">
+    <testcase classname="getCategories" name="should return all categories" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="controllers/__tests__/category.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T21:03:35" time="2.516" tests="2">
+    <testcase classname="Categories controller getCategories" name="returns categories" time="0.03">
     </testcase>
     <testcase classname="Categories controller getCategory" name="returns a category" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="services/__tests__/list_item.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T20:38:48" time="2.139" tests="1">
-    <testcase classname="getListItems" name="should return all list_items" time="0.005">
+  <testsuite name="services/__tests__/list_item.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T21:03:35" time="2.569" tests="1">
+    <testcase classname="getListItems" name="should return all list_items" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="services/__tests__/list.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T20:38:48" time="2.157" tests="1">
-    <testcase classname="getLists" name="should return all lists" time="0.003">
+  <testsuite name="services/__tests__/user.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T21:03:35" time="2.672" tests="5">
+    <testcase classname="UserService getUsers" name="should return all users" time="0.016">
     </testcase>
-  </testsuite>
-  <testsuite name="services/__tests__/user.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T20:38:48" time="2.239" tests="5">
-    <testcase classname="UserService getUsers" name="should return all users" time="0.009">
+    <testcase classname="UserService getUser()" name="should return a user" time="0">
     </testcase>
-    <testcase classname="UserService getUser()" name="should return a user" time="0.001">
+    <testcase classname="UserService createUser()" name="should create a user" time="0.087">
     </testcase>
-    <testcase classname="UserService createUser()" name="should create a user" time="0.088">
-    </testcase>
-    <testcase classname="UserService updateUser()" name="should update a user" time="0.067">
+    <testcase classname="UserService updateUser()" name="should update a user" time="0.08">
     </testcase>
     <testcase classname="UserService deleteUser()" name="should delete a user" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="controllers/__tests__/users.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T20:38:48" time="2.298" tests="5">
-    <testcase classname="UsersController GET /users" name="finds users" time="0.015">
+  <testsuite name="controllers/__tests__/users.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T21:03:35" time="2.722" tests="5">
+    <testcase classname="UsersController GET /users" name="finds users" time="0.012">
     </testcase>
     <testcase classname="UsersController GET /users/:id" name="finds user" time="0.001">
     </testcase>
     <testcase classname="UsersController POST /users" name="creates user" time="0">
     </testcase>
-    <testcase classname="UsersController PUT /users/1" name="updates user" time="0.001">
+    <testcase classname="UsersController PUT /users/1" name="updates user" time="0">
     </testcase>
     <testcase classname="UsersController DELETE /users/1" name="deletes user" time="0">
     </testcase>
