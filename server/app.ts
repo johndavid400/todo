@@ -64,11 +64,11 @@ app.get('/', (req: Request, res: Response) => {
 // public routes
 app.use("/auth", auth);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+app.use("/users", users);
 
 // jwt protected routes:
 app.use("*", verifyTokenMiddleware);
 app.use("/categories", categories);
-app.use("/users", users);
 app.use("/lists", lists);
 app.use("/list_items", list_items);
 
