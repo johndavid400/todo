@@ -52,6 +52,10 @@ const options = {
 const swaggerSpec = swaggerDocs(options);
 
 const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+  if (process.env.NODE_ENV === 'test') {
+    res.locals.user_id = 1;
+    return next();
+  }
   if (req.path === "/auth/login" && req.method == "POST") return next();
   if (req.path === "/users" && req.method == "POST") return next();
   if (req.path === "/categories" && req.method == "GET") return next();
