@@ -1,0 +1,25 @@
+name: Verify Server Integration Tests
+
+on:
+  pull_request:
+    paths:
+      - 'server/**'
+      - 'db/**'
+
+defaults:
+  run:
+    working-directory: ./server
+
+env:
+  DATABASE_URL: postgresql://postgres:password@localhost:5432/todo_db?schema=public
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🛎 Checkout
+        uses: actions/checkout@v3
+      - name: Install
+        run: npm i
+      - name: Test
+        run: npm run test:integration
