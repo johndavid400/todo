@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="4" failures="0" errors="0" time="1.373">
-  <testsuite name="services/__tests__/user.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:08:56" time="1.189" tests="1">
-    <testcase classname="getAllForUser" name="should return all events for a user" time="0.003">
+<testsuites name="jest tests" tests="7" failures="0" errors="0" time="2.309">
+  <testsuite name="services/__tests__/list.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:36:33" time="1.977" tests="1">
+    <testcase classname="getLists" name="should return all lists" time="0.007">
     </testcase>
   </testsuite>
-  <testsuite name="controllers/__tests__/category.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:08:56" time="1.206" tests="2">
-    <testcase classname="Categories controller getCategories" name="returns categories" time="0.008">
-    </testcase>
-    <testcase classname="Categories controller getCategory" name="returns a category" time="0">
+  <testsuite name="services/__tests__/user.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:36:33" time="1.98" tests="1">
+    <testcase classname="getUsers" name="should return all users" time="0.005">
     </testcase>
   </testsuite>
-  <testsuite name="controllers/__tests__/users.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:08:56" time="1.207" tests="1">
+  <testsuite name="controllers/__tests__/category.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:36:33" time="2.011" tests="2">
+    <testcase classname="Categories controller getCategories" name="returns categories" time="0.018">
+    </testcase>
+    <testcase classname="Categories controller getCategory" name="returns a category" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="controllers/__tests__/users.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:36:33" time="2.032" tests="1">
     <testcase classname="GET /users" name="finds users" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="services/__tests__/category.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:36:33" time="2.048" tests="1">
+    <testcase classname="getCategories" name="should return all categories" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="services/__tests__/list_item.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T17:36:33" time="2.107" tests="1">
+    <testcase classname="getListItems" name="should return all list_items" time="0.003">
     </testcase>
   </testsuite>
 </testsuites>

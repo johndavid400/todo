@@ -1,7 +1,7 @@
 import { prisma } from '../utils/prisma';
 
 export async function getListItems() {
-  return await prisma.lists.findMany();
+  return await prisma.list_items.findMany();
 }
 
 export async function getListItem(id: number) {

@@ -4,3 +4,4 @@ build/
 .env
 server/.env
 server/node_modules/
+server/jest-junit.xml
