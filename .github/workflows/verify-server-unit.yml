@@ -9,21 +9,28 @@ defaults:
   run:
     working-directory: ./server
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+env:
+  DATABASE_URL: postgresql://postgres:password@localhost:5432/todo_db?schema=public
+
 jobs:
-  execute:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - name: 🛎 Checkout
         uses: actions/checkout@v3
-      - name: Start docker compose
-        run: docker compose --profile dev up -d --wait && sleep 30
       - name: Install
-        run:  npm i
+        run: npm i
       - name: Test
-        run:  npm run test:unit
-      - name: Output the run Details
-        uses: actions/upload-artifact@v3
-        if: success()
+        run: npm run test:unit
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
         with:
-          name: TestOutput
-          path: ./test/api/html-report
+          name: Jest Tests
+          path: '**/test/jest-junit.xml'     # Path to test results
+          reporter: jest-junit
