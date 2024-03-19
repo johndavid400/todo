@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="0" errors="0" time="1.346">
+  <testsuite name="controllers/__tests__/category.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T15:36:43" time="1.149" tests="1">
+    <testcase classname="categories controller" name="Should return 200 when categories available" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="services/__tests__/user.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T15:36:43" time="1.149" tests="1">
+    <testcase classname="getAllForUser" name="should return all events for a user" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="controllers/__tests__/users.test.ts" errors="0" failures="0" skipped="0" timestamp="2024-03-19T15:36:43" time="1.176" tests="1">
+    <testcase classname="GET /users" name="finds users" time="0.008">
+    </testcase>
+  </testsuite>
+</testsuites>
