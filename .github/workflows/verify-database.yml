@@ -14,8 +14,3 @@ jobs:
       - uses: actions/checkout@v3
       - name: execute flyway in docker 🐳
         run: docker compose up --exit-code-from flyway
-      - name: Sleep for 30 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '30s'
-      - uses: ./.github/workflows/verify-schema-update.yml

@@ -1,6 +1,7 @@
 name: Verify Schema Update
 
 on:
+  pull_request:
   workflow_run:
     workflows: ["Verify Database"]
     types:
@@ -11,7 +12,7 @@ defaults:
     working-directory: ./server
 
 env:
-  DATABASE_URL: postgresql://postgres:password@localhost:5432/todo_db?schema=public
+  DATABASE_URL: postgresql://postgres:password@localhost:5433/todo_db?schema=public
 
 jobs:
   verify:
@@ -20,6 +21,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
+      - name: execute flyway in docker 🐳
+        run: docker compose up -d
       - name: Server Install
         run: npm i
       - name: Prisma Pull
@@ -34,4 +37,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Commit for snapshot update
-
+      - name: execute flyway in docker 🐳
+        run: docker compose down

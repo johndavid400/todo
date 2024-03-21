@@ -1,17 +1,14 @@
 import { Request, Response } from 'express';
 import { prisma } from '../utils/prisma';
+import * as listItemService from '../services/list_item_service';
 
 export async function getListItems(req: Request, res: Response) {
-  const list_items = await prisma.list_items.findMany();
+  const list_items = await listItemService.getListItems();
   return res.json(list_items).status(200);
 }
 
 export async function getListItem(req: Request, res: Response) {
-  const list_item = await prisma.list_items.findFirst({
-    where: {
-      id: parseInt(req.params.id)
-    },
-  });
+  const list_item = await listItemService.getListItem(Number(req.params.id));
   return res.json(list_item).status(200);
 }
 

@@ -57,6 +57,7 @@ model users {
   id                 Int          @id @default(autoincrement())
   email              String       @db.VarChar
   encrypted_password String       @db.VarChar
+  role_id            Int?
   categories         categories[]
   lists              lists[]
 }
