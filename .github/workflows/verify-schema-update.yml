@@ -1,7 +1,6 @@
 name: Verify Schema Update
 
 on:
-  pull_request:
   workflow_run:
     workflows: ["Verify Database"]
     types:
