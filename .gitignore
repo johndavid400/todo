@@ -5,3 +5,4 @@ build/
 server/.env
 server/node_modules/
 server/jest-junit.xml
+src/.vite/
