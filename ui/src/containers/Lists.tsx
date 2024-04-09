@@ -5,11 +5,9 @@ const Lists = () => {
 
   return (
     <>
-
       <div>
         <button onClick={() => navigate("/lists/1")}>List 1</button>
       </div>
-
     </>
   )
 };

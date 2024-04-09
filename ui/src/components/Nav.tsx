@@ -12,6 +12,7 @@ const Nav = () => {
         <button onClick={() => navigate("/test")}>Test</button>
         <button onClick={() => navigate("/nottest")}>Not Test</button>
         <button onClick={() => navigate("/lists")}>Lists</button>
+        <button onClick={() => navigate("/users")}>Users</button>
       </nav>
       <div>
         <a href="https://vitejs.dev" target="_blank">
