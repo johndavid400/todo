@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer, useContext } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import AppContext from '../components/AppContext';
+import CountContext from '../components/CountContext';
 
 interface state {
   num: number,
@@ -27,15 +27,17 @@ function ProfilePage() {
 //function Test() {
 const Test = () => {
   //const [count, setCount] = useState(0);
+  // use useContext to keep track of count/setCount instead of useState
+  const { count, setCount } = useContext(CountContext);
+
   const [megaCount, setMegaCount] = useState(0);
 
   const [state, dispatch] = useReducer(exampleReducer, { num: 1 });
 
   const params = useParams();
 
-  const value = useContext(AppContext);
+  const value = useContext(CountContext);
 
-  const { count, updateCount } = useContext(AppContext);
 
   useEffect(() => {
     // only print when count is updated
@@ -67,10 +69,10 @@ const Test = () => {
       </div>
 
       <div className="card">
-        <button onClick={() => updateCount(count + 20)}>
+        <button onClick={() => setCount(count + 20)}>
           increment count
         </button>
-        <button onClick={() => updateCount(count - 20)}>
+        <button onClick={() => setCount(count - 20)}>
           decrement count
         </button>
         <p>

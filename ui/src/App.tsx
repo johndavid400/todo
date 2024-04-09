@@ -3,20 +3,16 @@ import './App.css';
 import Nav from './components/Nav';
 import Router from './components/Router';
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
-import AppContext from './components/AppContext'
+import CountContext from './components/CountContext'
 
 function App() {
   const [count, setCount] = useState(0);
 
-  const updateCount = (value: Number) => {
-    setCount(value);
-  }
-
   return (
-    <AppContext.Provider value={{count, updateCount}}>
+    <CountContext.Provider value={{count, setCount}}>
       <Nav />
       <Router />
-    </AppContext.Provider>
+    </CountContext.Provider>
   )
 }
 
