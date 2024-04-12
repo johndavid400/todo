@@ -4,6 +4,17 @@
 
 This is a simple todo app, intended to provide a way to create and categorize lists with todo items. A user can create todo items on each list with a title and status. 
 
+## Getting Started
+
+#### Backend with Docker compose
+docker compose --profile dev up
+
+#### Frontend UI with Vite:
+npm run dev
+
+
+
+
 ## Purpose
 
 I need a way to create Todo lists and keep track of the items on the todo list. I would also like to group the lists by category and be able to choose a different color for each category to easily identify list types when using.
