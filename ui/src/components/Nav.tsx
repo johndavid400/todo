@@ -8,7 +8,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav style={{ position: 'absolute', top: 0 }}>
+      <nav className='main-nav' style={{ position: 'absolute', top: 0 }}>
         <button onClick={() => navigate("/test")}>Test</button>
         <button onClick={() => navigate("/nottest")}>Not Test</button>
         <button onClick={() => navigate("/lists")}>Lists</button>
