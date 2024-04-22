@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer, useContext } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import CountContext from '../components/CountContext';
+import CountContext from '../context/CountContext';
 
 interface state {
   num: number,
