@@ -9,6 +9,7 @@ const Nav = () => {
   return (
     <>
       <nav className='main-nav' style={{ position: 'absolute', top: 0 }}>
+        <button onClick={() => navigate("/login")}>Login</button>
         <button onClick={() => navigate("/test")}>Test</button>
         <button onClick={() => navigate("/nottest")}>Not Test</button>
         <button onClick={() => navigate("/lists")}>Lists</button>
