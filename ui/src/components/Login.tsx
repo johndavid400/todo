@@ -3,12 +3,16 @@ import { useState, useEffect, useReducer, useContext } from 'react';
 import AuthService from "../services/AuthService";
 import TokenUtils from "../utils/token";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function Login() {
-  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const notify = (msg: any) => toast(msg);
 
   const handleEmailChange = (event: any) => {
     setEmail(event.target.value);
@@ -29,7 +33,7 @@ function Login() {
     }
     catch (err) {
       msg = err.response.data.response;
-      setError(msg);
+      notify(msg);
       response = {"data": msg}
       navigate('/login');
     }
@@ -43,29 +47,30 @@ function Login() {
       console.log(email + " " + password);
       loginUser(email, password);
     } catch (err) {
-      console.log('OH SNAP!');
       console.log(err);
     }
   };
 
   return(
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <div className="error-msg">{error}</div>
-      <form>
-        <label>
-          <p>Email</p>
-          <input type="text" onChange={handleEmailChange} />
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" onChange={handlePasswordChange} />
-        </label>
-        <div>
-          <button type="submit" onClick={handleLogin}>Submit</button>
-        </div>
-      </form>
-    </div>
+    <>
+      <div className="login-wrapper">
+        <h1>Please Log In</h1>
+        <form>
+          <label>
+            <p>Email</p>
+            <input type="text" onChange={handleEmailChange} />
+          </label>
+          <label>
+            <p>Password</p>
+            <input type="password" onChange={handlePasswordChange} />
+          </label>
+          <div>
+            <button type="submit" onClick={handleLogin}>Submit</button>
+          </div>
+        </form>
+      </div>
+      <ToastContainer position="bottom-right"/>
+    </>
   )
 }
 
