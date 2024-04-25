@@ -17,18 +17,18 @@ export async function login(req: Request, res: Response) {
       const accessToken = jwt.sign({ sub: user.id, email: user.email }, `${process.env.SECRET_KEY}`, {
         expiresIn: 1200
       });
-      return res.json(accessToken).status(200);
+      return res.status(200).json(accessToken);
     }
     else {
-      return res.json({"response": "Invalid login credentials: Password does not match"}).status(400);
+      return res.status(400).json({"response": "Invalid login credentials: Password does not match"});
     }
   }
   else {
-    return res.json({"response": "Invalid login credentials: User not found."}).status(400);
+    return res.status(400).json({"response": "Invalid login credentials: User not found."});
   }
 }
 
 export async function logout(req: Request, res: Response) {
   // invalidate JWT
-  return res.json({"response": "success"}).status(201);
+  return res.status(201).json({"response": "success"});
 }

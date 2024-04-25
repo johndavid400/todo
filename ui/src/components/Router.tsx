@@ -1,3 +1,4 @@
+import { useState, useEffect, useReducer, useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Test from '../containers/Test';
@@ -7,8 +8,13 @@ import Users from '../containers/Users';
 import User from '../containers/User';
 
 import Login from '../components/Login';
+import TokenUtils from "../utils/token";
 
 const Router = () => {
+  useEffect(() => {
+    const userLoggedIn = TokenUtils.isTokenValid();
+  }, []);
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />

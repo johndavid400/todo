@@ -10,7 +10,6 @@ const authenticate = async (email: string, password: string) => {
       }
       else {
         TokenUtils.removeUser();
-        new(error)
       }
       return response;
     });

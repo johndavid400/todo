@@ -32,6 +32,11 @@ const removeUser = () => {
   localStorage.removeItem("user");
 };
 
+const isTokenValid = () => {
+  const jwt = getJWT() ;
+  return isTokenExpired(jwt);
+};
+
 const isTokenExpired = (token: any) => {
   const jwt = jwtDecode(token) as any;
   const currentTime = new Date().getTime() / 1000;
@@ -44,6 +49,7 @@ const TokenUtils = {
   getUser,
   setUser,
   removeUser,
+  isTokenValid,
   isTokenExpired
 };
 

@@ -4,6 +4,7 @@ import AuthService from "../services/AuthService";
 import TokenUtils from "../utils/token";
 
 function Login() {
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,10 +19,19 @@ function Login() {
   };
 
   const loginUser = async (email: string, password: string) => {
-    const response = await AuthService.authenticate(email, password);
+    let msg = '';
+    let response = {};
 
-    if (response.status === 200) {
+    try {
+      response = await AuthService.authenticate(email, password);
+      status = response.status;
       navigate('/');
+    }
+    catch (err) {
+      msg = err.response.data.response;
+      setError(msg);
+      response = {"data": msg}
+      navigate('/login');
     }
 
     return response.data;
@@ -33,6 +43,7 @@ function Login() {
       console.log(email + " " + password);
       loginUser(email, password);
     } catch (err) {
+      console.log('OH SNAP!');
       console.log(err);
     }
   };
@@ -40,6 +51,7 @@ function Login() {
   return(
     <div className="login-wrapper">
       <h1>Please Log In</h1>
+      <div className="error-msg">{error}</div>
       <form>
         <label>
           <p>Email</p>
