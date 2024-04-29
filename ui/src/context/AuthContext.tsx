@@ -1,5 +1,5 @@
-import { createContext } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
-const initialState = { loggedIn: false }
+const AuthContext = createContext();
 
-export const AuthContext = createContext(initialState);
+export default AuthContext;

@@ -26,18 +26,16 @@ function ProfilePage() {
 
 //function Test() {
 const Test = () => {
-  //const [count, setCount] = useState(0);
-  // use useContext to keep track of count/setCount instead of useState
+  // count uses useContext() to keep track of count/setCount instead of useState, making it keep state across page loads
   const { count, setCount } = useContext(CountContext);
-
+  // megaCount uses useState() to keep track of value
   const [megaCount, setMegaCount] = useState(0);
-
+  // example of using a reducer
   const [state, dispatch] = useReducer(exampleReducer, { num: 1 });
 
   const params = useParams();
 
   const value = useContext(CountContext);
-
 
   useEffect(() => {
     // only print when count is updated
@@ -45,6 +43,7 @@ const Test = () => {
     console.log(value);
   }, [count]);
 
+  // useEffect() will run only once if end array is empty
   useEffect(() => {
     console.log(params);
   }, [count]);

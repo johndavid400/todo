@@ -2,6 +2,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useReducer, useContext } from 'react';
 import AuthService from "../services/AuthService";
 import TokenUtils from "../utils/token";
+import AuthContext from '../context/AuthContext'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { user, login, logout } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -23,32 +26,28 @@ function Login() {
   };
 
   const loginUser = async (email: string, password: string) => {
-    let msg = '';
     let response = {};
 
     try {
-      response = await AuthService.authenticate(email, password);
-      status = response.status;
+      const response = await AuthService.authenticate(email, password);
+      const userData = TokenUtils.getUser();
+      login(userData);
       navigate('/');
+      return response.data
     }
     catch (err) {
-      msg = err.response.data.response;
+      await AuthService.logout();
+      logout();
+      const msg = err.response.data.response;
       notify(msg);
-      response = {"data": msg}
       navigate('/login');
+      return msg;
     }
-
-    return response.data;
   };
 
   const handleLogin = (event: any) => {
     event.preventDefault();
-    try {
-      console.log(email + " " + password);
-      loginUser(email, password);
-    } catch (err) {
-      console.log(err);
-    }
+    loginUser(email, password);
   };
 
   return(

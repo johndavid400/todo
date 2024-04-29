@@ -1,5 +1,5 @@
-import instance from '../utils/axios';
 import TokenUtils from "../utils/token";
+import instance from "../utils/axios";
 
 const authenticate = async (email: string, password: string) => {
   return await instance
@@ -8,15 +8,17 @@ const authenticate = async (email: string, password: string) => {
       if (response.status == 200) {
         TokenUtils.setJWT(response.data);
       }
-      else {
-        TokenUtils.removeUser();
-      }
       return response;
     });
 };
 
+const logout = async () => {
+  return await TokenUtils.logout();
+};
+
 const AuthService = {
   authenticate: authenticate,
+  logout: logout
 }
 
 export default AuthService;

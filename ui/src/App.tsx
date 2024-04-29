@@ -3,16 +3,31 @@ import './App.css';
 import Nav from './components/Nav';
 import Router from './components/Router';
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
-import CountContext from './context/CountContext'
+
+import AuthContext from './context/AuthContext'
+import TokenUtils from "./utils/token";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const userData = TokenUtils.getUser();
+    login(userData);
+  }, []);
+
+  const login = (userData) => {
+    setUser(userData);
+  };
+
+  const logout = () => {
+    setUser(null);
+  };
 
   return (
-    <CountContext.Provider value={{count, setCount}}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       <Nav />
       <Router />
-    </CountContext.Provider>
+    </AuthContext.Provider>
   )
 }
 

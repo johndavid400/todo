@@ -27,14 +27,26 @@ const setUser = (jwt: any) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 
-const removeUser = () => {
+const logout = () => {
   localStorage.removeItem("jwt");
   localStorage.removeItem("user");
 };
 
+const removeUser = () => {
+  logout();
+};
+
 const isTokenValid = () => {
   const jwt = getJWT() ;
-  return isTokenExpired(jwt);
+  if (jwt) {
+    console.log('Token is Valid!');
+    return isTokenExpired(jwt);
+  }
+  else {
+    console.log('Token is NOT Valid!');
+    return false;
+  }
+  console.log(jwt);
 };
 
 const isTokenExpired = (token: any) => {
@@ -49,6 +61,7 @@ const TokenUtils = {
   getUser,
   setUser,
   removeUser,
+  logout,
   isTokenValid,
   isTokenExpired
 };

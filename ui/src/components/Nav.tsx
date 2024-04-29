@@ -1,28 +1,36 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import reactLogo from '../assets/react.svg';
-import viteLogo from '../../public/vite.svg';
-import '../App.css';
+import { useState, useEffect, useReducer, useContext } from 'react';
+import TokenUtils from "../utils/token";
+import Logos from '../components/Logos';
+import AuthContext from '../context/AuthContext'
 
 const Nav = () => {
   const navigate = useNavigate();
+  const { user, logout } = useContext(AuthContext);
 
-  return (
-    <>
+  const unAuthenticatedNavbar = () => {
+    return (
       <nav className='main-nav' style={{ position: 'absolute', top: 0 }}>
-        <button onClick={() => navigate("/login")}>Login</button>
+      </nav>
+    )
+  }
+
+  const authenticatedNavbar = () => {
+    return (
+      <nav className='main-nav' style={{ position: 'absolute', top: 0 }}>
+        <button onClick={() => navigate("/logout")}>Logout</button>
         <button onClick={() => navigate("/test")}>Test</button>
         <button onClick={() => navigate("/nottest")}>Not Test</button>
         <button onClick={() => navigate("/lists")}>Lists</button>
         <button onClick={() => navigate("/users")}>Users</button>
       </nav>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
+    )
+  }
+
+  return (
+    <>
+      {user ? authenticatedNavbar() : unAuthenticatedNavbar()}
+      <Logos />
     </>
   )
 };
