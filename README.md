@@ -12,7 +12,8 @@ docker compose --profile dev up
 #### Frontend UI with Vite:
 npm run dev
 
-
+#### Tailwind CLI compiles App.css into output.css
+npx tailwindcss -i ./src/App.css -o ./src/output.css --watch
 
 
 ## Purpose

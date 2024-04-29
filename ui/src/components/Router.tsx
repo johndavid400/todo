@@ -20,20 +20,22 @@ const Router = () => {
   const authenticatedRoutes = () => {
     return (
       <CountContext.Provider value={{count, setCount}}>
-        <Routes>
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/lists">
-             <Route index element={<Lists />} />
-             <Route path={':listId'} element={<List />} />
-          </Route>
-          <Route path="/users">
-             <Route index element={<Users />} />
-             <Route path={':userId'} element={<User />} />
-          </Route>
-          <Route path="/test" element={<Test />} />
-          <Route path="/nottest" element={<>Goodbye there</>} />
-          <Route path="*" element={<Navigate to="/test" />} />
-        </Routes>
+        <div className="container">
+          <Routes>
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/lists">
+               <Route index element={<Lists />} />
+               <Route path={':listId'} element={<List />} />
+            </Route>
+            <Route path="/users">
+               <Route index element={<Users />} />
+               <Route path={':userId'} element={<User />} />
+            </Route>
+            <Route path="/test" element={<Test />} />
+            <Route path="/nottest" element={<>Goodbye there</>} />
+            <Route path="*" element={<Navigate to="/test" />} />
+          </Routes>
+        </div>
       </CountContext.Provider>
     )
   }

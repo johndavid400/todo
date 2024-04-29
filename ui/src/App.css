@@ -1,11 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
 }
 
-.logo {
+.vite-logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -43,11 +44,35 @@
 
 .main-nav {
   width: 100%;
+  height: 60px;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 50px;
 }
 
-.error-msg {
-  background: rgba(255, 0, 0, 0.7);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 4px;
+.menu {
+  position: absolute;
+  right: 15px;
+  top: 9px;
 }
+
+.data-radix-popper-content-wrapper {
+  left: -10px;
+}
+
+.site-logo {
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
+.site-logo img {
+  height: 50px;
+  margin-left: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+

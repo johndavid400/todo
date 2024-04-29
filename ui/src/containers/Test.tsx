@@ -62,9 +62,6 @@ const Test = () => {
         <p>
           reducer num is {state.num}
         </p>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
 
       <div className="card">
@@ -77,9 +74,6 @@ const Test = () => {
         <p>
           count is {count}
         </p>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
 
       <div className="card">
@@ -91,9 +85,6 @@ const Test = () => {
         </button>
         <p>
           mega count is {megaCount}
-        </p>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
     </>

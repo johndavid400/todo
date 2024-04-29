@@ -1,11 +1,13 @@
 import { useState, useEffect, useReducer } from 'react';
-import './App.css';
-import Nav from './components/Nav';
-import Router from './components/Router';
 import { Routes, Route, Navigate, useNavigate, useParams } from 'react-router-dom';
-
 import AuthContext from './context/AuthContext'
 import TokenUtils from "./utils/token";
+import Nav from './components/Nav';
+import Router from './components/Router';
+import '@radix-ui/themes/styles.css';
+import './output.css';
+import { Theme } from '@radix-ui/themes';
+
 
 function App() {
   const [user, setUser] = useState();
@@ -26,8 +28,10 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
-      <Nav />
-      <Router />
+      <Theme>
+        <Nav />
+        <Router />
+      </Theme>
     </AuthContext.Provider>
   )
 }
