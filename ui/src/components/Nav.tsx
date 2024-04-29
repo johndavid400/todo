@@ -18,7 +18,7 @@ const Nav = () => {
   const authenticatedNavbar = () => {
     return (
       <nav className='main-nav' style={{ position: 'absolute', top: 0 }}>
-        <button onClick={() => navigate("/logout")}>Logout</button>
+        <button onClick={() => logout()}>Logout</button>
         <button onClick={() => navigate("/test")}>Test</button>
         <button onClick={() => navigate("/nottest")}>Not Test</button>
         <button onClick={() => navigate("/lists")}>Lists</button>

@@ -20,6 +20,7 @@ function App() {
   };
 
   const logout = () => {
+    TokenUtils.logout();
     setUser(null);
   };
 
