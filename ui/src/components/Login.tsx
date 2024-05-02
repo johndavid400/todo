@@ -4,18 +4,34 @@ import AuthService from "../services/AuthService";
 import TokenUtils from "../utils/token";
 import AuthContext from '../context/AuthContext'
 
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+
+const loginSchema = z.object({
+  email: z.string().min(5, { message: 'Email must be at least 5 characters.' }),
+  password: z.string().min(6, { message: 'Password must be at least 6 characters.' }),
+});
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { user, login, logout } = useContext(AuthContext);
-
   const navigate = useNavigate();
-
   const notify = (msg: any) => toast(msg);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
+  });
 
   const handleEmailChange = (event: any) => {
     setEmail(event.target.value);
@@ -46,25 +62,26 @@ function Login() {
   };
 
   const handleLogin = (event: any) => {
-    event.preventDefault();
     loginUser(email, password);
   };
 
   return(
     <>
       <div className="login-wrapper">
-        <h1>Please Log In</h1>
-        <form>
+        <h1>Log In</h1>
+        <form className="login-form" onSubmit={handleSubmit((d) => console.log(d))}>
           <label>
             <p>Email</p>
-            <input type="text" onChange={handleEmailChange} />
+            <Input {...register('email')} onChange={handleEmailChange} />
+            {errors.email?.message && <p className="error-msg">{errors.email?.message}</p>}
           </label>
           <label>
             <p>Password</p>
-            <input type="password" onChange={handlePasswordChange} />
+            <Input type="password" {...register('password') } onChange={handlePasswordChange} />
+            {errors.password?.message && <p className="error-msg">{errors.password?.message}</p>}
           </label>
           <div>
-            <button type="submit" onClick={handleLogin}>Submit</button>
+            <Button variant="outline" className="login-btn" onClick={handleLogin}>Submit</Button>
           </div>
         </form>
       </div>

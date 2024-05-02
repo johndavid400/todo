@@ -40,7 +40,7 @@ const Nav = () => {
               <DropdownMenuItem><Link to="/lists">Lists</Link></DropdownMenuItem>
               <DropdownMenuItem><Link to="/nottest">Blank Page</Link></DropdownMenuItem>
               <hr />
-              <DropdownMenuItem><Link to="/logout">Logout</Link></DropdownMenuItem>
+              <DropdownMenuItem><button onClick={() => logout()}>Logout</button></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

@@ -76,3 +76,28 @@
   align-items: center;
 }
 
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.login-wrapper .login-form {
+  border: 1px solid gray;
+  border-radius: 4px;
+  padding: 20px;
+  margin-top: 20px;
+  min-width: 330px;
+}
+
+.login-btn {
+  margin-top: 20px;
+}
+
+.error-msg {
+  color: red;
+}
+
+
