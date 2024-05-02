@@ -1,22 +1,21 @@
-import { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import instance from "@/utils/axios";
 
-function GetUser() {
-  const [user, setUser] = useState(null);
-  const { userId } = useParams();
-  const apiUrl = 'http://localhost:5000/users/' + userId;
+const User = () => {
   const navigate = useNavigate();
+  const { userId } = useParams();
+  const [user, setUser] = useState();
 
   useEffect(() => {
-    async function fetchData() {
-      var data = await fetch(apiUrl).then(res => {
-        return res.json();
-      });
-
-      setUser(data);
-      console.log(data);
-    }
-    fetchData();
+    const getUser = async (id: any) => {
+      return await instance
+        .get(`/users/${id}`)
+        .then((response) => {
+          setUser(response.data);
+        });
+    };
+    getUser(userId);
   }, []);
 
   if (user) {
@@ -36,12 +35,13 @@ function GetUser() {
             <td>{user.role_id}</td>
           </tr>
         </table>
+        <button onClick={() => navigate("/users")}>Back to Users</button>
       </>
     );
   }
   else {
     return <div>User not found</div>;
   }
-}
+};
 
-export default GetUser;
+export default User;

@@ -1,25 +1,25 @@
-import { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect, useReducer } from 'react';
+import instance from "@/utils/axios";
+import TokenUtils from "../utils/token";
 
-function GetUsers() {
-  const [users, setUsers] = useState(null);
-  const apiUrl = 'http://localhost:5000/users';
+const Users = () => {
   const navigate = useNavigate();
+  const [users, setUsers] = useState();
 
   useEffect(() => {
-    async function fetchData() {
-      var data = await fetch(apiUrl).then(res => {
-        return res.json();
-      });
-
-      setUsers(data);
-      console.log(data);
-    }
-    fetchData();
+    const getUsers = async () => {
+      return await instance
+        .get("/users")
+        .then((response) => {
+          setUsers(response.data);
+        });
+    };
+    getUsers();
   }, []);
 
   return (
-    <div>
+    <>
       <h2>Users:</h2>
       {users && users.map(function(i){
           return (
@@ -29,8 +29,9 @@ function GetUsers() {
             </div>
           )
       })}
-    </div>
-  );
-}
+    </>
+  )
+};
 
-export default GetUsers;
+export default Users;
+

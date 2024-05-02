@@ -2,14 +2,13 @@ import { useState, useEffect, useReducer, useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Test from '../containers/Test';
-import Lists from '../containers/Lists';
-import List from '../containers/List';
-import Users from '../containers/Users';
-import User from '../containers/User';
+import Lists from '../containers/lists/Lists';
+import List from '../containers/lists/List';
+import Users from '../containers/users/Users';
+import User from '../containers/users/User';
 
 import Login from '../components/Login';
 import Logout from '../components/Logout';
-import TokenUtils from "../utils/token";
 import CountContext from '../context/CountContext'
 import AuthContext from '../context/AuthContext'
 

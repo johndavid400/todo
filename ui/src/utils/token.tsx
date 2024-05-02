@@ -19,7 +19,7 @@ const setJWT = (jwt: any) => {
 };
 
 const getUser = () => {
-  return localStorage.getItem("user") ?? "{}";
+  return localStorage.getItem("user");
 };
 
 const setUser = (jwt: any) => {

@@ -14,7 +14,12 @@ function App() {
 
   useEffect(() => {
     const userData = TokenUtils.getUser();
-    login(userData);
+    if (userData) {
+      login(userData);
+    }
+    else {
+      setUser(null);
+    }
   }, []);
 
   const login = (userData) => {
