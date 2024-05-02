@@ -1,15 +1,37 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect, useReducer } from 'react';
+import instance from "@/utils/axios";
+import TokenUtils from "../utils/token";
 
 const Lists = () => {
   const navigate = useNavigate();
+  const [lists, setLists] = useState();
+
+  useEffect(() => {
+    const getLists = async () => {
+      return await instance
+        .get("/lists")
+        .then((response) => {
+          setLists(response.data);
+        });
+    };
+    getLists();
+  }, []);
 
   return (
     <>
-      <div>
-        <button onClick={() => navigate("/lists/1")}>List 1</button>
-      </div>
+      <h2>Lists:</h2>
+      {lists && lists.map(function(i){
+          return (
+            <div key={i.id}>
+              <a key={i.id} href={'/lists/' + i.id}>{i.title}</a>
+              <button onClick={() => navigate("/lists/" + i.id)}>{i.title}</button>
+            </div>
+          )
+      })}
     </>
   )
 };
 
 export default Lists;
+
