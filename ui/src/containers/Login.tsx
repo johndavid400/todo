@@ -72,12 +72,12 @@ function Login() {
         <img src={siteLogo} className="login-logo" alt="Site logo" />
         <form className="login-form" onSubmit={handleSubmit((d) => console.log(d))}>
           <label className="form-field">
-            <p>Email</p>
+            <p className="label">Email</p>
             <Input {...register('email')} onChange={handleEmailChange} />
             {errors.email?.message && <p className="error-msg">{errors.email?.message}</p>}
           </label>
           <label className="form-field">
-            <p>Password</p>
+            <p className="label">Password</p>
             <Input type="password" {...register('password') } onChange={handlePasswordChange} />
             {errors.password?.message && <p className="error-msg">{errors.password?.message}</p>}
           </label>

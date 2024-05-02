@@ -968,6 +968,11 @@ video {
   margin-top: 50px;
 }
 
+label .label {
+  color: gray;
+  margin-bottom: 5px;
+}
+
 .login-wrapper .login-form {
   box-shadow: 0px 0px 30px 0px #d4d4d4;
   border-radius: 4px;
@@ -993,6 +998,10 @@ video {
   border-radius: 4px;
   width: 100%;
   margin-bottom: 10px;
+}
+
+.login-form button {
+  color: gray;
 }
 
 .file\:border-0::file-selector-button {
