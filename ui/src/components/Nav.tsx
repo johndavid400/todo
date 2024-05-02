@@ -51,7 +51,6 @@ const Nav = () => {
   return (
     <>
       {user ? authenticatedNavbar() : unAuthenticatedNavbar()}
-
     </>
   )
 };

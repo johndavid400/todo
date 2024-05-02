@@ -12,6 +12,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import siteLogo from '@/assets/site-logo.png';
 
 const loginSchema = z.object({
   email: z.string().min(5, { message: 'Email must be at least 5 characters.' }),
@@ -68,14 +69,14 @@ function Login() {
   return(
     <>
       <div className="login-wrapper">
-        <h1>Log In</h1>
+        <img src={siteLogo} className="login-logo" alt="Site logo" />
         <form className="login-form" onSubmit={handleSubmit((d) => console.log(d))}>
-          <label>
+          <label className="form-field">
             <p>Email</p>
             <Input {...register('email')} onChange={handleEmailChange} />
             {errors.email?.message && <p className="error-msg">{errors.email?.message}</p>}
           </label>
-          <label>
+          <label className="form-field">
             <p>Password</p>
             <Input type="password" {...register('password') } onChange={handlePasswordChange} />
             {errors.password?.message && <p className="error-msg">{errors.password?.message}</p>}

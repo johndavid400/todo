@@ -1,14 +1,13 @@
 import { useState, useEffect, useReducer, useContext } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
+import Login from '../containers/Login';
 import Test from '../containers/Test';
 import Lists from '../containers/lists/Lists';
 import List from '../containers/lists/List';
 import Users from '../containers/users/Users';
 import User from '../containers/users/User';
 
-import Login from '../components/Login';
-import Logout from '../components/Logout';
 import CountContext from '../context/CountContext'
 import AuthContext from '../context/AuthContext'
 
@@ -21,7 +20,7 @@ const Router = () => {
       <CountContext.Provider value={{count, setCount}}>
         <div className="container">
           <Routes>
-            <Route path="/logout" element={<Logout />} />
+            <Route path="/logout" element={<>Logout</>} />
             <Route path="/lists">
                <Route index element={<Lists />} />
                <Route path={':listId'} element={<List />} />
@@ -42,8 +41,8 @@ const Router = () => {
   const unAuthenticatedRoutes = () => {
     return (
       <Routes>
-      <Route path="/login" element={<Login />} />
-      <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     )
   }

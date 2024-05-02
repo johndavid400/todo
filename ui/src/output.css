@@ -950,6 +950,7 @@ video {
 
 .site-logo img {
   height: 50px;
+  width: 135px;
   margin-left: 10px;
 }
 
@@ -968,7 +969,7 @@ video {
 }
 
 .login-wrapper .login-form {
-  border: 1px solid gray;
+  box-shadow: 0px 0px 30px 0px #d4d4d4;
   border-radius: 4px;
   padding: 20px;
   margin-top: 20px;
@@ -981,6 +982,17 @@ video {
 
 .error-msg {
   color: red;
+}
+
+.login-logo {
+  width: 330px;
+  height: 120px;
+}
+
+.login-form input, .login-form button {
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .file\:border-0::file-selector-button {
@@ -1134,5 +1146,4 @@ video {
 .data-\[side\=top\]\:slide-in-from-bottom-2[data-side=top] {
   --tw-enter-translate-y: 0.5rem;
 }
-
 
