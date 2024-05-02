@@ -15,7 +15,7 @@ export async function login(req: Request, res: Response) {
     if (passwordsMatch) {
       // generate and return JWT
       const accessToken = jwt.sign({ sub: user.id, email: user.email }, `${process.env.SECRET_KEY}`, {
-        expiresIn: 1200
+        expiresIn: 604800
       });
       return res.status(200).json(accessToken);
     }
