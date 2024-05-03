@@ -16,6 +16,11 @@ export const list_items = Router();
  *   get:
  *     summary: Get all list_items
  *     tags: [ListItems]
+ *     parameters:
+ *      - name: list_id
+ *        in: query
+ *        type: integer
+ *        description: The list_id of the list_items.
  *     responses:
  *       200:
  *         description: Returns an array of list_items.
@@ -116,8 +121,8 @@ list_items.route('/:id').patch(
     body('position')
       .isInt()
       .optional({nullable: true}),
-    body('completed_at')
-      .isString()
+    body('completed')
+      .isBoolean()
       .trim()
       .optional({nullable: true})
   ],

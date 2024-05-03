@@ -8,8 +8,12 @@ export async function getCategories(req: Request, res: Response) {
 }
 
 export async function getCategory(req: Request, res: Response) {
-  const category = await categoryService.getCategory(Number(req.params.id));
-  return res.json(category).status(200);
+  try {
+    const category = await categoryService.getCategory(Number(req.params.id));
+    return res.json(category).status(200);
+  } catch (error) {
+    res.json(error)
+  }
 }
 
 export async function createCategory(req: Request, res: Response) {
