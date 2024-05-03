@@ -1,7 +1,6 @@
-import { useNavigate, useParams } from 'react-router-dom';
-import { useState, useEffect, useReducer } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import instance from "@/utils/axios";
-import TokenUtils from "../utils/token";
 
 const Lists = () => {
   const navigate = useNavigate();
