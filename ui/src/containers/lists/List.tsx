@@ -61,6 +61,14 @@ const List = () => {
       });
   };
 
+  const removeListItem = async (id: any) => {
+    return await instance
+      .delete(`/list_items/${id}`)
+      .then((response) => {
+        getListItems();
+      });
+  };
+
   const handleListItem = (item: any, event: any) => {
     updateListItem(item.id, event.target.checked);
   };
@@ -90,9 +98,9 @@ const List = () => {
           <CardContent>
             {listItems && listItems.sort((a, b) => (a.id > b.id) ? 1 : -1).map(function(i){
               return (
-                <div key={i.id} className="items-top flex space-x-2 mt-3">
-                  <input type="checkbox" id={`list-item-${i.id}`} defaultChecked={i.completed_at} onChange={(e) => handleListItem(i, e)} />
-                  <div className="grid gap-1.5 leading-none">
+                <div key={i.id} className="items-top flex items-center space-x-2 mt-3">
+                  <div className="flex items-center gap-1.5 leading-none">
+                    <input type="checkbox" id={`list-item-${i.id}`} defaultChecked={i.completed_at} onChange={(e) => handleListItem(i, e)} />
                     <label
                       htmlFor={`list-item-${i.id}`}
                       className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -103,6 +111,9 @@ const List = () => {
                         <>{i.title}</>
                       )}
                     </label>
+                  </div>
+                  <div>
+                    <input type="button" value="X" onClick={() => removeListItem(i.id)} />
                   </div>
                 </div>
               )
