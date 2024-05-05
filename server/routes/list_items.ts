@@ -50,11 +50,6 @@ list_items.route('/:id').get(ListItemsController.getListItem);
  *   post:
  *     summary: Create a new list_item
  *     tags: [ListItems]
- *     parameters:
- *      - name: list_id
- *        in: path
- *        type: string
- *        description: The id of the list.
  *     requestBody:
  *      content:
  *        application/json:
@@ -64,6 +59,8 @@ list_items.route('/:id').get(ListItemsController.getListItem);
  *              title:
  *                type: string
  *                required: true
+ *              list_id:
+ *                type: integer
  *              position:
  *                type: integer
  *     responses:
@@ -78,6 +75,9 @@ list_items.route('/').post(
       .trim()
       .optional({nullable: true}),
     body('position')
+      .isInt()
+      .optional({nullable: true}),
+    body('list_id')
       .isInt()
   ],
   validateRequest,

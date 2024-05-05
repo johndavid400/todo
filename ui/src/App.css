@@ -121,3 +121,6 @@ label .label {
   color: gray;
 }
 
+.new-item {
+  display: flex;
+}

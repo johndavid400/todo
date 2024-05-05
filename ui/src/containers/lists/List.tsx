@@ -21,6 +21,7 @@ const List = () => {
   const [list, setList] = useState();
   const [listItems, setListItems] = useState();
   const [category, setCategory] = useState(initialState);
+  const [item, setItem] = useState();
 
   const getList = async () => {
     return await instance
@@ -46,6 +47,17 @@ const List = () => {
       .get(`/categories/${id}`)
       .then((response) => {
         setCategory(response.data);
+      });
+  };
+
+  const addListItem = async () => {
+    const list_id = listId;
+    const title = item;
+    const position = listItems.length + 1;
+    return await instance
+      .post("/list_items", { title, list_id, position })
+      .then((response) => {
+        getListItems();
       });
   };
 
@@ -97,7 +109,10 @@ const List = () => {
             })}
           </CardContent>
           <CardFooter>
-            <p>Card Footer</p>
+            <div className="new-item">
+              <Input onChange={(e) => setItem(e.target.value)} />
+              <input type="button" value="Add" onClick={() => addListItem()} />
+            </div>
           </CardFooter>
         </Card>
         <button className="mt-3" onClick={() => navigate("/lists")}>Back to Lists</button>

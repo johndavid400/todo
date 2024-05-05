@@ -27,19 +27,17 @@ export async function getListItem(req: Request, res: Response) {
 }
 
 export async function createListItem(req: Request, res: Response) {
-  const { list_id } = req.params;
-  const { title, position } = req.body;
+  const { title, position, list_id } = req.body;
 
   try {
     const list_item = await prisma.list_items.create({
       data: {
-        title: title || undefined,
-        position: Number(position),
         list_id: Number(list_id),
-        created_at: new Date() || undefined
+        title: title,
+        position: Number(position),
+        created_at: new Date()
       },
     });
-    // TODO figure out how to dynamically set the user_id
     return res.json(list_item).status(200);
   } catch (error) {
     res.json(error)
@@ -50,6 +48,7 @@ export async function updateListItem(req: Request, res: Response) {
   const { id } = req.params;
   const { title, position, completed } = req.body;
   let completed_at = null;
+  const pos = position ? Number(position) : null;
 
   if (completed === 'true') {
     completed_at = new Date();
@@ -60,7 +59,7 @@ export async function updateListItem(req: Request, res: Response) {
       where: { id: Number(id) },
       data: {
         title: title || undefined,
-        position: Number(position) || undefined,
+        position: pos || undefined,
         completed_at: completed_at
       },
     })

@@ -1,8 +1,8 @@
 INSERT INTO
     users (email, encrypted_password)
 VALUES
-    ('test@example.com', '5fc7c84d6213d760590ba8cd915194d1'),
-    ('user@example.com', '02cc8fccb43bf34b56db4bf2d4463a88');
+    ('test@example.com', '$2a$10$tNzHtYCF1nAuuYdXL10pLOvT5zyBQFOELf/RYD.a7rAX3V0fHdlva'),
+    ('user@example.com', '$2a$10$tNzHtYCF1nAuuYdXL10pLOvT5zyBQFOELf/RYD.a7rAX3V0fHdlva');
 
 INSERT INTO
     categories (user_id, color_code, title)
