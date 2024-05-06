@@ -18,14 +18,14 @@ export async function getCategory(req: Request, res: Response) {
 
 export async function createCategory(req: Request, res: Response) {
   const { title, color_code } = req.body;
+  const userId = res.locals.user || null;
   const category = await prisma.categories.create({
     data: {
       title: title || undefined,
       color_code: color_code || undefined,
-      user_id: 1 || undefined
+      user_id: userId || undefined
     },
   });
-  // TODO figure out how to dynamically set the user_id
   return res.json(category).status(200);
 }
 

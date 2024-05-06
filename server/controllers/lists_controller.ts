@@ -14,15 +14,15 @@ export async function getList(req: Request, res: Response) {
 
 export async function createList(req: Request, res: Response) {
   const { title, category_id } = req.body;
+  const userId = res.locals.user || null;
   const list = await prisma.lists.create({
     data: {
       title: title || undefined,
       category_id: category_id || undefined,
-      user_id: 1 || undefined,
-      created_at: new Date() || undefined
+      user_id: userId || undefined,
+      created_at: new Date()
     },
   });
-  // TODO figure out how to dynamically set the user_id
   return res.json(list).status(200);
 }
 

@@ -4,6 +4,7 @@ import instance from "@/utils/axios";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input"
+import { Progress } from "@/components/ui/progress";
 import {
   Card,
   CardContent,
@@ -22,6 +23,7 @@ const List = () => {
   const [listItems, setListItems] = useState();
   const [category, setCategory] = useState(initialState);
   const [item, setItem] = useState();
+  const [progress, setProgress] = useState();
 
   const getList = async () => {
     return await instance
@@ -34,11 +36,23 @@ const List = () => {
       });
   };
 
+  const calculateProgress = (items: any) => {
+    const totalItems = items.length;
+    const completedItems = items.filter(checkCompleted).length;
+    const value = (completedItems / totalItems) * 100;
+    setProgress(value);
+  };
+
+  function checkCompleted(item) {
+    return item.completed_at ? true : false;
+  };
+
   const getListItems = async () => {
     return await instance
       .get(`/list_items?list_id=${listId}`)
       .then((response) => {
         setListItems(response.data);
+        calculateProgress(response.data)
       });
   };
 
@@ -54,6 +68,8 @@ const List = () => {
     const list_id = listId;
     const title = item;
     const position = listItems.length + 1;
+    const input = document.getElementById("new-input");
+    input.value = '';
     return await instance
       .post("/list_items", { title, list_id, position })
       .then((response) => {
@@ -84,21 +100,21 @@ const List = () => {
   useEffect(() => {
     getList();
 
-    return () => console.log('unmounting...');
-  }, []);
+    return () => console.log('unmounting...'); }, []);
 
   if (list) {
     return (
       <>
-        <Card>
+        <Card className="list">
           <CardHeader>
             <CardTitle>{list.title}</CardTitle>
             <CardDescription>{ category && category.title }</CardDescription>
           </CardHeader>
           <CardContent>
+            <Progress value={progress} color={category.color_code} />
             {listItems && listItems.sort((a, b) => (a.id > b.id) ? 1 : -1).map(function(i){
               return (
-                <div key={i.id} className="items-top flex items-center space-x-2 mt-3">
+                <div key={i.id} className="items-top flex items-center justify-between space-x-2 mt-3">
                   <div className="flex items-center gap-1.5 leading-none">
                     <input type="checkbox" id={`list-item-${i.id}`} defaultChecked={i.completed_at} onChange={(e) => handleListItem(i, e)} />
                     <label
@@ -120,9 +136,9 @@ const List = () => {
             })}
           </CardContent>
           <CardFooter>
-            <div className="new-item">
-              <Input onChange={(e) => setItem(e.target.value)} />
-              <input type="button" value="Add" onClick={() => addListItem()} />
+            <div id="new">
+              <Input id="new-input" onChange={(e) => setItem(e.target.value)} />
+              <input type="button" id="new-btn" value="Add" onClick={() => addListItem()} />
             </div>
           </CardFooter>
         </Card>
