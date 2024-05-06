@@ -141,3 +141,12 @@ label .label {
 .list {
   border-radius: 4px;
 }
+
+.list-card {
+  width: 200px;
+  border-radius: 4px;
+}
+
+.list .list-card {
+  height: 300px;
+}

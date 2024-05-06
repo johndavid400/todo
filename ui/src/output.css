@@ -594,12 +594,20 @@ video {
   margin-bottom: 0.25rem;
 }
 
+.me-3 {
+  margin-inline-end: 0.75rem;
+}
+
 .ml-auto {
   margin-left: auto;
 }
 
 .mt-3 {
   margin-top: 0.75rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
 }
 
 .flex {
@@ -700,8 +708,16 @@ video {
           user-select: none;
 }
 
+.flex-row {
+  flex-direction: row;
+}
+
 .flex-col {
   flex-direction: column;
+}
+
+.items-start {
+  align-items: flex-start;
 }
 
 .items-center {
@@ -1142,6 +1158,15 @@ label .label {
 
 .list {
   border-radius: 4px;
+}
+
+.list-card {
+  width: 200px;
+  border-radius: 4px;
+}
+
+.list .list-card {
+  height: 300px;
 }
 
 .file\:border-0::file-selector-button {

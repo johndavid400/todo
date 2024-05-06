@@ -38,6 +38,7 @@ const Nav = () => {
               <DropdownMenuItem><Link to="/test">Test Counters</Link></DropdownMenuItem>
               <DropdownMenuItem><Link to="/users">Users</Link></DropdownMenuItem>
               <DropdownMenuItem><Link to="/lists">Lists</Link></DropdownMenuItem>
+              <DropdownMenuItem><Link to="/categories">Categories</Link></DropdownMenuItem>
               <DropdownMenuItem><Link to="/nottest">Blank Page</Link></DropdownMenuItem>
               <hr />
               <DropdownMenuItem><button onClick={() => logout()}>Logout</button></DropdownMenuItem>

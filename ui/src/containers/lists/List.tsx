@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import instance from "@/utils/axios";
+import ListCard from '@/components/ListCard';
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input"
@@ -96,6 +97,8 @@ const List = () => {
         getListItems();
       });
   };
+
+  const editable = true;
 
   useEffect(() => {
     getList();

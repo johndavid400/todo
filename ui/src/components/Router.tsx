@@ -8,6 +8,9 @@ import List from '../containers/lists/List';
 import Users from '../containers/users/Users';
 import User from '../containers/users/User';
 
+import Category from '../containers/categories/Category';
+import Categories from '../containers/categories/Categories';
+
 import CountContext from '../context/CountContext'
 import AuthContext from '../context/AuthContext'
 
@@ -21,6 +24,10 @@ const Router = () => {
         <div className="container">
           <Routes>
             <Route path="/logout" element={<>Logout</>} />
+            <Route path="/categories">
+               <Route index element={<Categories />} />
+               <Route path={':categoryId'} element={<Category />} />
+            </Route>
             <Route path="/lists">
                <Route index element={<Lists />} />
                <Route path={':listId'} element={<List />} />
