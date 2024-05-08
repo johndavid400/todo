@@ -138,6 +138,15 @@ label .label {
   border-bottom-right-radius: 4px;
 }
 
+.lists {
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 20px;
+  justify-content: center;
+}
+
 .list {
   border-radius: 4px;
 }
