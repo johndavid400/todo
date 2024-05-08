@@ -21,7 +21,7 @@ const Lists = () => {
 
   const addList = async () => {
     const title = list;
-    const input = document.getElementById("new-input");
+    const input = document.getElementById("new-list-input");
     const category_id = category;
     input.value = '';
     return await instance
@@ -77,7 +77,7 @@ const Lists = () => {
       </div>
       <div className="flex flex-col mt-5">
         <div id="new" className="flex ">
-          <Select onValueChange={(value) => handleCategory(value)} >
+          <Select id="new-list-category" defaultValue={3} onValueChange={(value) => handleCategory(value)} >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder={'Category'} />
             </SelectTrigger>
@@ -89,7 +89,7 @@ const Lists = () => {
               })}
             </SelectContent>
           </Select>
-          <Input id="new-input" onChange={(e) => setList(e.target.value)} />
+          <Input id="new-list-input" onChange={(e) => setList(e.target.value)} />
           <input type="button" id="new-btn" value="Add" onClick={() => addList()} />
         </div>
       </div>
