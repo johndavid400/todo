@@ -73,16 +73,16 @@ function Login() {
         <form className="login-form" onSubmit={handleSubmit((d) => console.log(d))}>
           <label className="form-field">
             <p className="label">Email</p>
-            <Input {...register('email')} onChange={handleEmailChange} />
+            <Input {...register('email')} onChange={handleEmailChange} data-testid="login-email" />
             {errors.email?.message && <p className="error-msg">{errors.email?.message}</p>}
           </label>
           <label className="form-field">
             <p className="label">Password</p>
-            <Input type="password" {...register('password') } onChange={handlePasswordChange} />
+            <Input type="password" {...register('password') } onChange={handlePasswordChange} data-testid="login-password" />
             {errors.password?.message && <p className="error-msg">{errors.password?.message}</p>}
           </label>
           <div>
-            <Button variant="outline" className="login-btn" onClick={handleLogin}>Submit</Button>
+            <Button variant="outline" className="login-btn" onClick={handleLogin} data-testid="login-submit">Submit</Button>
           </div>
         </form>
       </div>
