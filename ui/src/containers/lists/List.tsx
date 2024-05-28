@@ -78,6 +78,14 @@ const List = () => {
       });
   };
 
+  const removeList = async (id: any) => {
+    return await instance
+      .delete(`/lists/${id}`)
+      .then((response) => {
+        navigate('/');
+      });
+  };
+
   const removeListItem = async (id: any) => {
     return await instance
       .delete(`/list_items/${id}`)
@@ -110,7 +118,10 @@ const List = () => {
       <>
         <Card className="list">
           <CardHeader>
-            <CardTitle>{list.title}</CardTitle>
+            <CardTitle className="flex justify-between">
+              {list.title}
+              <input type="button" value="X" onClick={() => removeList(list.id)} />
+            </CardTitle>
             <CardDescription>{ category && category.title }</CardDescription>
           </CardHeader>
           <CardContent>
