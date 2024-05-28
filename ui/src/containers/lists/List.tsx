@@ -120,7 +120,7 @@ const List = () => {
           <CardHeader>
             <CardTitle className="flex justify-between">
               {list.title}
-              <input type="button" value="X" onClick={() => removeList(list.id)} />
+              <input type="button" value="X" data-testid="remove-list" onClick={() => removeList(list.id)} />
             </CardTitle>
             <CardDescription>{ category && category.title }</CardDescription>
           </CardHeader>
