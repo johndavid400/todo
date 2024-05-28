@@ -14,42 +14,22 @@ export async function getList(req: Request, res: Response) {
 
 export async function createList(req: Request, res: Response) {
   const { title, category_id } = req.body;
-  const userId = res.locals.user || null;
-  const list = await prisma.lists.create({
-    data: {
-      title: title || undefined,
-      category_id: category_id || undefined,
-      user_id: userId || undefined,
-      created_at: new Date()
-    },
-  });
+
+  const list = await listService.createList(Number(res.locals.user), title, Number(category_id));
+
   return res.json(list).status(200);
 }
 
 export async function updateList(req: Request, res: Response) {
-  const { id } = req.params;
-  const { title, category_id } = req.body;
-
   try {
-    const list = await prisma.lists.update({
-      where: { id: Number(id) },
-      data: {
-        title: title || undefined,
-        category_id: category_id || undefined
-      },
-    })
+    const list = await listService.updateList(Number(req.params.id), req.body);
     return res.json(list).status(200);
   } catch (error) {
-    res.json({ error: `List with ID ${id} does not exist in the database` })
+    res.json({ error: `List with ID ${req.params.id} does not exist in the database` })
   }
 }
 
 export async function deleteList(req: Request, res: Response) {
-  const { id } = req.params;
-  const list = await prisma.lists.delete({
-    where: {
-      id: Number(id)
-    },
-  })
+  const list = await listService.deleteList(Number(req.params.id));
   return res.json(list).status(200);
 }
