@@ -38,7 +38,7 @@ const Router = () => {
             </Route>
             <Route path="/test" element={<Test />} />
             <Route path="/nottest" element={<>Goodbye there</>} />
-            <Route path="*" element={<Navigate to="/test" />} />
+            <Route path="*" element={<Navigate to="/lists" />} />
           </Routes>
         </div>
       </CountContext.Provider>

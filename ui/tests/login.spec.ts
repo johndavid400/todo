@@ -6,7 +6,7 @@ test.describe('User login', () => {
     await page.getByTestId('login-email').fill('test@example.com');
     await page.getByTestId('login-password').fill('password');
     await page.getByTestId('login-submit').click();
-    await expect(page.locator('h1')).toContainText(['Click some buttons']);
+    await expect(page.locator('h1')).toContainText(['Lists']);
   });
 });
 

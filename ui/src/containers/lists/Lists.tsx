@@ -77,7 +77,7 @@ const Lists = () => {
       </div>
       <div className="flex flex-col mt-5">
         <div id="new" className="flex ">
-          <Select id="new-list-category" defaultValue={3} onValueChange={(value) => handleCategory(value)} >
+          <Select id="new-list-category" defaultValue={3} onValueChange={(value) => handleCategory(value)} data-testid="list-category-input" >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder={'Category'} />
             </SelectTrigger>
@@ -89,8 +89,8 @@ const Lists = () => {
               })}
             </SelectContent>
           </Select>
-          <Input id="new-list-input" onChange={(e) => setList(e.target.value)} />
-          <input type="button" id="new-btn" value="Add" onClick={() => addList()} />
+          <Input id="new-list-input" onChange={(e) => setList(e.target.value)} data-testid="list-name-input" />
+          <input type="button" id="new-btn" value="Add" onClick={() => addList()} data-testid="list-submit" />
         </div>
       </div>
     </>

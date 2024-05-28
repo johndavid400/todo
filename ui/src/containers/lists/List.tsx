@@ -140,8 +140,8 @@ const List = () => {
           </CardContent>
           <CardFooter>
             <div id="new">
-              <Input id="new-input" onChange={(e) => setItem(e.target.value)} />
-              <input type="button" id="new-btn" value="Add" onClick={() => addListItem()} />
+              <Input id="new-input" onChange={(e) => setItem(e.target.value)} data-testid="list-item-input" />
+              <input type="button" id="new-btn" value="Add" onClick={() => addListItem()} data-testid="list-item-submit" />
             </div>
           </CardFooter>
         </Card>

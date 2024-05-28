@@ -57,7 +57,7 @@ const ListCard = (props: any) => {
     <>
       <Card className="list-card" >
         <CardHeader>
-          <CardTitle><Link to={'/lists/' + props.list.id}>{props.list.title}</Link></CardTitle>
+          <CardTitle><Link to={'/lists/' + props.list.id} className="list-title" >{props.list.title}</Link></CardTitle>
           <CardDescription>
             <CardDescription>{ category && category.title }</CardDescription>
           </CardDescription>
