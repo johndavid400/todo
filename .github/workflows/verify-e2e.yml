@@ -5,15 +5,15 @@ on:
   pull_request:
     branches: [ main, master ]
 jobs:
-  execute:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 🛎 Checkout
-        uses: actions/checkout@v3
-      - name: Start docker compose
-        run: docker compose --profile dev up -d --wait && sleep 30
-      - name: Test
-        run:  npm run test
+#  execute:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: 🛎 Checkout
+#        uses: actions/checkout@v3
+#      - name: Start docker compose
+#        run: docker compose --profile dev up -d --wait && sleep 30
+#      - name: Test
+#        run:  npm run test
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
@@ -34,5 +34,3 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
-
-
