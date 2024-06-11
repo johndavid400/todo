@@ -61,6 +61,10 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Home page');
 });
 
+app.get('/health', (req: Request, res: Response) => {
+  res.json({"status": "ok"});
+});
+
 // public routes
 app.use("/auth", auth);
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
