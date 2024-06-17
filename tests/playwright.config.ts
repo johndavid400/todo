@@ -4,14 +4,16 @@ import { defineConfig, devices } from '@playwright/test';
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// require('dotenv').config();
+ require('dotenv').config();
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 
+console.log(process.env.CI);
+
 export default defineConfig({
-  testDir: './tests',
+  testDir: './e2e',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -31,29 +33,36 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
 
+  globalSetup: process.env.CI
+    ? require.resolve('./e2e/global.setup.ts')
+    : undefined,
+  globalTeardown: process.env.CI
+    ? require.resolve('./e2e/global.teardown.ts')
+    : undefined,
+
   /* Configure projects for major browsers */
   projects: [
 
-    {
-      name: 'setup db',
-      testMatch: /global\.setup\.ts/,
-    },
+    //{
+    //  name: 'setup db',
+    //  testMatch: /global\.setup\.ts/,
+    //},
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup db'],
+      //dependencies: ['setup db'],
     },
 
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
-      dependencies: ['setup db'],
+      //dependencies: ['setup db'],
     },
 
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
-      dependencies: ['setup db'],
+      //dependencies: ['setup db'],
     },
 
     /* Test against mobile viewports. */
